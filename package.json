@@ -1,0 +1,17 @@
+{
+  "name": "samirarrahmani_6_11022022",
+  "version": "1.0.0",
+  "description": "Site web qui permet aux photographes indépendants de présenter leurs meilleurs travaux.",
+  "main": "index.js",
+  "repository": "https://github.com/samir0067/SamirArrahmani_6_11022022.git",
+  "author": "samir <arrahmani.samir@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "browserslist": [
+    "last 4 versions"
+  ],
+  "scripts": {
+    "sass": "sass --watch src/scss/main.scss src/css/style.css",
+    "sassMin": "sass --watch ./sass/main.scss src/css/style-min.css --style compressed"
+  }
+}

@@ -1,0 +1,28 @@
+@import "../utils/variables";
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: $fontDMSans;
+}
+
+body {
+  box-sizing: border-box;
+  max-width: 1280px;
+  color: $colorBlack;
+  line-height: 1.1;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: $colorBlack;
+}
