@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye</title>
-  </head>
-  <body>
-    <header>
-        <img src="assets/images/logo.png" class="logo" />
-        <h1>Nos photographes</h1>
-    </header>
-    <main id="main">
-        <div class="photographer_section"></div>
-    </main>
-    <script src="scripts/factories/Photographer.js"></script>
-    <script src="scripts/pages/index.js"></script>
-    <script src="scripts/pages/photographer.js"></script>
-  </body>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="src/assets/favicon.png"/>
+  <link href="src/css/style.css" rel="stylesheet" type="text/css"/>
+  <title>Fisheye</title>
+</head>
+<body>
+<header>
+  <img src="src/assets/images/logo.png" alt="image du logo fisheye" class="logo"/>
+  <h1>Nos photographes</h1>
+</header>
+<main id="main">
+  <div class="photographer_section"></div>
+</main>
+<script src="src/scripts/factories/photographer.js"></script>
+<script src="src/scripts/pages/index.js"></script>
+<script src="src/scripts/pages/photographer.js"></script>
+<script src="src/scripts/utils/contactForm.js"></script>
+</body>
 </html>
