@@ -1,10 +1,11 @@
 const openingData = () => {
-  return fetch('../data/photographers.json')
+  return fetch('photographers.json')
     .then(response => response.json())
-    .then(data => {
-      console.log('openingData ==>', data)
-    })
-    .catch(error => {
-      console.log('error openingData ==>', error)
-    })
 }
+
+openingData()
+  .then(data => {
+    console.log('data ==>', data)
+    return data
+  })
+  .catch(error => console.log('error =>', error))
