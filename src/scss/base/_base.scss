@@ -1,8 +1,6 @@
 @import "../utils/variables";
 
-*,
-*::after,
-*::before {
+*, *::after, *::before {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
@@ -26,3 +24,4 @@ a {
   text-decoration: none;
   color: $colorBlack;
 }
+
