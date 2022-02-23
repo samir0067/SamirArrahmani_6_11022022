@@ -1,0 +1,49 @@
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  &_buttonContent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    object-fit: cover;
+    & img {
+      width: 15rem;
+      height: 15rem;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: $shadow;
+      transition: all 400ms;
+    }
+    &:hover img {
+      box-shadow: $extendShadow;
+    }
+    &_title {
+      font-size: 1.5rem;
+      text-align: center;
+      white-space: nowrap;
+      color: $colorSpiritWarrior;
+    }
+  }
+  &_info {
+    text-align: center;
+    padding-top: 0.5rem;
+    &_title {
+      margin-bottom: 3px;
+      color: $colorShinshu;
+    }
+    &_subTitle {
+      margin-bottom: 3px;
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+    &_price {
+      font-size: 0.7rem;
+      color: $colorBrilliantLicorice;
+    }
+  }
+}

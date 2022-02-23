@@ -15,18 +15,17 @@
 </head>
 
 <body>
-<header>
-  <img src="src/assets/images/logo.png" alt="image du logo fisheye" class="logo"/>
-  <h1>Nos photographes</h1>
+<header class="header">
+  <a href="index.html">
+    <img class="header_logo" src="src/assets/images/logo.svg" alt="image du logo fisheye"/>
+  </a>
+  <h1 class="header_title">Nos Photographes</h1>
 </header>
-<main id="main">
-  <div class="photographer_section"></div>
-  <button class="sign-in-button">hello</button>
-</main>
-<script src="src/scripts/factories/photographer.js"></script>
-<script src="src/scripts/pages/index.js"></script>
-<script src="src/scripts/pages/photographer.js"></script>
-<script src="src/scripts/utils/contactForm.js"></script>
-<script src="src/scripts/utils/openingData.js"></script>
+
+<!-- MAIN -->
+<main class="main"></main>
+
+<script src="./src/javascript/pages/index.js"></script>
+<script src="src/javascript/utils/fetchData.js"></script>
 </body>
 </html>
