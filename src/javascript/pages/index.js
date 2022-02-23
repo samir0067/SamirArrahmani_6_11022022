@@ -14,7 +14,7 @@ const viewPhotographers = (photographersTable) => {
     main.innerHTML +=
       `<div class="card">
         <a role="button" tabindex=${tabIndex++} class="card_buttonContent" aria-label="portrait de ${photographe.name}" href="./photographer.html?nom=${photographe.name}&identifiant=${photographe.id}">
-          <img src="./src/assets/photographers/Photographers ID Photos/${photographe.portrait}" />
+          <img src="./src/assets/photographers/Photographers ID Photos/${photographe.portrait}"/>
           <h2 class="card_title">${photographe.name}</h2>
         </a>
         <div class="card_info" tabindex=${tabIndex++}>
