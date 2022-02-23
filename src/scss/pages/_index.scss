@@ -1,0 +1,14 @@
+@import '../utils/variables';
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 50px;
+}
+
+@media (max-width: map-get($breakpoints, tablet)) {
+  .main {
+    justify-content: center;
+  }
+}

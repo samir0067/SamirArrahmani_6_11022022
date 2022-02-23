@@ -11,7 +11,9 @@
     "last 4 versions"
   ],
   "scripts": {
-    "sass": "sass --watch src/scss/main.scss src/css/style.css",
-    "sassMin": "sass --watch ./sass/main.scss src/css/style-min.css --style compressed"
+    "sass": "sass --watch src/scss/main.scss src/css/style.css"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0"
   }
 }
