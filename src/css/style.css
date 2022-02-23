@@ -27,46 +27,48 @@ a {
   flex-direction: column;
   margin: 50px;
 }
-.card_buttonContent {
+.card_imageContent {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
   object-fit: cover;
 }
-.card_buttonContent img {
+.card_imageContent img {
   width: 15rem;
   height: 15rem;
-  border-radius: 50%;
   object-fit: cover;
+  border-radius: 7.5rem;
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.4);
   transition: all 400ms;
 }
-.card_buttonContent:hover img {
-  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
-}
-.card_buttonContent_title {
-  font-size: 1.5rem;
-  text-align: center;
-  white-space: nowrap;
+.card_imageContent h2 {
+  font-size: 2.2rem;
+  font-weight: 100;
   color: #d3573c;
+}
+.card_imageContent:hover img {
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
 }
 .card_info {
   text-align: center;
-  padding-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 .card_info_title {
-  margin-bottom: 3px;
-  color: #901c1c;
+  font-weight: 100;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  color: #d3573c;
 }
-.card_info_subTitle {
-  margin-bottom: 3px;
+.card_info_description {
   font-size: 0.7rem;
+  margin-top: 0.3rem;
   white-space: nowrap;
 }
 .card_info_price {
   font-size: 0.7rem;
-  color: #525252;
+  margin-top: 0.3rem;
+  color: #9f9f9f;
 }
 
 .header {
@@ -78,8 +80,8 @@ a {
   width: 12rem;
 }
 .header_title {
-  font-weight: bold;
-  font-size: 1.7rem;
+  font-weight: 400;
+  font-size: 2.3rem;
   color: #901c1c;
 }
 
@@ -88,11 +90,10 @@ a {
     align-items: center;
     flex-direction: column;
   }
-  .header_logo {
-    margin-bottom: 1rem;
-  }
   .header_title {
+    margin-top: 1rem;
     font-size: 1.5rem;
+    text-align: center;
   }
 }
 .main {

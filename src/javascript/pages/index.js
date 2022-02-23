@@ -13,13 +13,13 @@ const viewPhotographers = (photographersTable) => {
 
     main.innerHTML +=
       `<div class="card">
-        <a role="button" tabindex=${tabIndex++} class="card_buttonContent" aria-label="portrait de ${photographe.name}" href="./photographer.html?nom=${photographe.name}&identifiant=${photographe.id}">
+        <a role="button" tabindex=${tabIndex++} class="card_imageContent" aria-label="portrait de ${photographe.name}" href="./photographer.html?nom=${photographe.name}&identifiant=${photographe.id}">
           <img src="./src/assets/photographers/Photographers ID Photos/${photographe.portrait}"/>
-          <h2 class="card_title">${photographe.name}</h2>
+          <h2>${photographe.name}</h2>
         </a>
         <div class="card_info" tabindex=${tabIndex++}>
           <h3 class="card_info_title">${photographe.city}, ${photographe.country}</h3>
-          <p class="card_info_subTitle"> ${photographe.tagline}</p>
+          <p class="card_info_description"> ${photographe.tagline}</p>
           <p class="card_info_price">${photographe.price}€/jour</p>
         </div>
       </div>`
