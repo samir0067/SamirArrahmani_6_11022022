@@ -7,20 +7,25 @@ header.innerHTML =
     </a>
     <h1 class="header_title" tabindex="2">Nos Photographes</h1>`
 
-const viewPhotographers = (photographersTable) => {
+const viewPhotographers = (photographers) => {
   let tabIndex = 3
-  photographersTable.forEach((photographe) => {
-
+  photographers.forEach((photographer) => {
     main.innerHTML +=
       `<div class="card">
-        <a role="button" tabindex=${tabIndex++} class="card_imageContent" aria-label="portrait de ${photographe.name}" href="./photographer.html?nom=${photographe.name}&identifiant=${photographe.id}">
-          <img src="./src/assets/photographers/Photographers ID Photos/${photographe.portrait}"/>
-          <h2>${photographe.name}</h2>
+        <a 
+          role="button" 
+          tabindex=${tabIndex++} 
+          class="card_imageContent" 
+          aria-label="portrait de ${photographer.name}" 
+          href="./photographer.html?nom=${photographer.name}&identifiant=${photographer.id}"
+        >
+          <img src="./src/assets/photographers/Photographers ID Photos/${photographer.portrait}"/>
+          <h2>${photographer.name}</h2>
         </a>
         <div class="card_info" tabindex=${tabIndex++}>
-          <h3 class="card_info_title">${photographe.city}, ${photographe.country}</h3>
-          <p class="card_info_description"> ${photographe.tagline}</p>
-          <p class="card_info_price">${photographe.price}€/jour</p>
+          <h3 class="card_info_title">${photographer.city}, ${photographer.country}</h3>
+          <p class="card_info_description"> ${photographer.tagline}</p>
+          <p class="card_info_price">${photographer.price}€/jour</p>
         </div>
       </div>`
   })
