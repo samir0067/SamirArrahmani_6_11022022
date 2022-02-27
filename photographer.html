@@ -14,14 +14,22 @@
   <title>Fisheye - photographe</title>
 </head>
 <body>
-<header>
-  <img src="src/assets/images/logo.svg" class="logo" alt=""/>
-</header>
-<main id="main">
-  <div class="photograph-header">
-    <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-  </div>
+<!-- HEADER -->
+<header class="header"></header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- PROFILE -->
+  <section class="photographer">
+    <div class="photographer_profile"></div>
+
+    <div class="photographer_imageContainer"></div>
+
+    <!--    <button class="photographe__contacte" aria-label="Contacte">Contactez-moi</button>-->
+  </section>
 </main>
+
 <div id="contact_modal">
   <div class="modal">
     <header>
@@ -37,5 +45,8 @@
     </form>
   </div>
 </div>
+<!-- JAVASCRIPT -->
+<script src="./src/javascript/pages/photographer.js"></script>
+<script src="src/javascript/utils/getDataForPhotographer.js"></script>
 </body>
 </html>
