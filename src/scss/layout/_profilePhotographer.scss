@@ -1,0 +1,59 @@
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.photographer {
+  width: 100%;
+  height: 313px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  background-color: $colorDoctor;
+  &_profile {
+    &_name {
+      font-size: 64px;
+      font-weight: 400;
+      color: $colorSpiritWarrior;
+    }
+    &_address {
+      font-size: 24px;
+      font-weight: 400;
+      color: $colorShinshu;
+    }
+    &_description {
+      font-size: 18px;
+      font-weight: 400;
+      color: $colorBrilliantLicorice;
+    }
+  }
+  & button {
+    @include pressButton;
+  }
+  & img {
+    @include imageProfile;
+  }
+}
+
+@media (max-width: map-get($breakpoints, tablet)) {
+  .photographer {
+    height: 450px;
+    flex-direction: column;
+    background-color: $colorWhite;
+    &_profile {
+      text-align: center;
+      &_name {
+        font-size: 34px;
+      }
+      &_address {
+        font-size: 20px;
+      }
+      &_description {
+        font-size: 16px;
+      }
+    }
+    & img {
+      width: 12rem;
+      height: 12rem;
+    }
+  }
+}

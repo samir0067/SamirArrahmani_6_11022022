@@ -12,12 +12,7 @@
     justify-content: space-between;
     object-fit: cover;
     & img {
-      width: 15rem;
-      height: 15rem;
-      object-fit: cover;
-      border-radius: 7.5rem;
-      box-shadow: $shadow;
-      transition: all 400ms;
+      @include imageProfile;
     }
     & h2 {
       font-size: 2.2rem;
