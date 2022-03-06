@@ -35,7 +35,7 @@ const viewPhotographers = (photographers) => {
           href="./photographer.html?identifiant=${photographer.id}"
         >
           <img 
-            src="./src/assets/photographers/Photographers ID Photos/${photographer.portrait}" 
+            src="./src/assets/photographersAndMedia/PhotographersPhotos/${photographer.portrait}" 
             alt="photo de ${photographer.name}"
           />
           <h2>${photographer.name}</h2>
