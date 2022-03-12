@@ -42,8 +42,8 @@ const dropDownFilter = () => {
   dropDown.innerHTML = `    
     <p class="dropDown_label">Trier par</p>
     <div class="dropDown_list">
-      <button class="dropDown_list_active">
-        Popularité <i class="fas fa-angle-down"></i>
+      <button class="dropDown_list_visible">
+        Popularité <img class="dropDown_list_visible_image" src="./src/assets/images/chevron-down.png" alt="Fisheye Home page"/>
       </button>
       <div class="dropDown_list_border"></div>
       <button class="dropDown_list_hide">Date</button>
@@ -59,16 +59,16 @@ const ListMediaPhotographer = (selectedPhotographer, mediasPhotographer) => {
       <div class="mediaCard">
         <button class="mediaCard_link" title="${photographeMedia.title}">
           ${photographeMedia.hasOwnProperty("video") ? (
-            `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.video}"/>`
-          ) : (
-            `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.image}" alt="${photographeMedia.image}">`
-          )}
+      `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.video}"/>`
+    ) : (
+      `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.image}" alt="${photographeMedia.image}">`
+    )}
         </button>
         <div class="mediaCard_details">
           <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
           <button class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}" type="button">
             <span class="mediaCard_details_favorites_heart">${photographeMedia.likes}</span>
-            <i class="fas fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
           </button>
         </div>
       </div>
