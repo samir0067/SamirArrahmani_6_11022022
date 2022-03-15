@@ -7,7 +7,8 @@ const currentFilter = document.querySelector(".dropDown_list_visible_current")
 const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
 
-let sorted = ""
+let sorted = "Popularité"
+let typeFilter = ""
 let selectedPhotographer = ""
 let mediasPhotographer = []
 
@@ -53,10 +54,6 @@ dropDownButton.addEventListener("click", () => {
 })
 
 const ListMediaPhotographer = () => {
-
-  if (sorted === "") {
-    mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
-  }
   mediasPhotographer.forEach((photographeMedia) => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
@@ -80,26 +77,26 @@ const ListMediaPhotographer = () => {
 }
 
 const dropDownFilter = () => {
-  let option = ""
   dropDownHide.forEach((element) => {
     element.addEventListener("click", (event) => {
       sorted = event.currentTarget.textContent
-      option = currentFilter.textContent
+      typeFilter = currentFilter.textContent
+      if (sorted === "Popularité") {
+        mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
+        element.textContent = typeFilter
+        currentFilter.textContent = sorted
+      }
       if (sorted.includes("Date")) {
-        mediasPhotographer.sort((a, b) => (a.date < b.date ? 1 : -1))
-        element.textContent = option
+        mediasPhotographer.sort((a, b) => (a.date > b.date ? 1 : -1))
+        element.textContent = typeFilter
         currentFilter.textContent = sorted
       }
       if (sorted.includes("Titre")) {
-        mediasPhotographer.sort((a, b) => (a.title < b.title ? 1 : -1))
-        element.textContent = option
+        mediasPhotographer.sort((a, b) => (a.title > b.title ? 1 : -1))
+        element.textContent = typeFilter
         currentFilter.textContent = sorted
       }
-      if (sorted === "Popularité") {
-        mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
-        element.textContent = option
-        currentFilter.textContent = sorted
-      }
+      mediaContainer.innerHTML = ""
       ListMediaPhotographer()
     })
   })

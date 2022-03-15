@@ -135,11 +135,6 @@ a {
   top: -20px;
 }
 
-@media (max-width: 768px) {
-  .main {
-    justify-content: center;
-  }
-}
 .header {
   margin: 4rem;
   display: flex;

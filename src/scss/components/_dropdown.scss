@@ -53,9 +53,3 @@
     }
   }
 }
-
-@media (max-width: map-get($breakpoints, tablet)) {
-  .main {
-    justify-content: center;
-  }
-}
