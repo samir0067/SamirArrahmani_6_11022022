@@ -100,7 +100,6 @@ const dropDownFilter = () => {
         element.textContent = option
         currentFilter.textContent = sorted
       }
-      mediaContainer.innerHTML = ""
       ListMediaPhotographer()
     })
   })
