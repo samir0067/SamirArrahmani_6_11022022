@@ -84,9 +84,7 @@ const dropDownFilter = () => {
   dropDownHide.forEach((element) => {
     element.addEventListener("click", (event) => {
       sorted = event.currentTarget.textContent
-      console.log('sorted =>', sorted)
       option = currentFilter.textContent
-      console.log('option =>', option)
       if (sorted.includes("Date")) {
         mediasPhotographer.sort((a, b) => (a.date < b.date ? 1 : -1))
         element.textContent = option
@@ -103,7 +101,7 @@ const dropDownFilter = () => {
         currentFilter.textContent = sorted
       }
       mediaContainer.innerHTML = ""
-      ListMediaPhotographer(selectedPhotographer, mediasPhotographer)
+      ListMediaPhotographer()
     })
   })
 }
