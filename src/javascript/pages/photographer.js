@@ -79,22 +79,22 @@ const ListMediaPhotographer = () => {
 const dropDownFilter = () => {
   dropDownHide.forEach((element) => {
     element.addEventListener("click", (event) => {
-      sorted = event.currentTarget.textContent
-      typeFilter = currentFilter.textContent
+      sorted = event.currentTarget.innerHTML
+      typeFilter = currentFilter.innerHTML
       if (sorted === "Popularité") {
         mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
-        element.textContent = typeFilter
-        currentFilter.textContent = sorted
+        element.innerHTML = typeFilter
+        currentFilter.innerHTML = sorted
       }
       if (sorted.includes("Date")) {
         mediasPhotographer.sort((a, b) => (a.date > b.date ? 1 : -1))
-        element.textContent = typeFilter
-        currentFilter.textContent = sorted
+        element.innerHTML = typeFilter
+        currentFilter.innerHTML = sorted
       }
       if (sorted.includes("Titre")) {
         mediasPhotographer.sort((a, b) => (a.title > b.title ? 1 : -1))
-        element.textContent = typeFilter
-        currentFilter.textContent = sorted
+        element.innerHTML = typeFilter
+        currentFilter.innerHTML = sorted
       }
       mediaContainer.innerHTML = ""
       ListMediaPhotographer()
