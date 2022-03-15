@@ -3,8 +3,13 @@ const header = document.querySelector(".header")
 const photographerProfile = document.querySelector(".photographer")
 const mediaContainer = document.querySelector(".mediaContainer")
 const dropDownButton = document.querySelector(".dropDown_list_visible")
+const currentFilter = document.querySelector(".dropDown_list_visible_current")
 const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
+
+let sorted = ""
+let selectedPhotographer = ""
+let mediasPhotographer = []
 
 const fetchPhotographer = async() => {
   return await fetch("photographers.json")
@@ -12,12 +17,11 @@ const fetchPhotographer = async() => {
 }
 
 fetchPhotographer().then((data) => {
-  let selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
-  let mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
+  selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
+  mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
   profileDescription(selectedPhotographer)
-  dropDownFilter(selectedPhotographer)
+  dropDownFilter(mediasPhotographer)
   ListMediaPhotographer(selectedPhotographer, mediasPhotographer)
-  incrementationLike()
 })
 
 header.innerHTML =
@@ -48,45 +52,9 @@ dropDownButton.addEventListener("click", () => {
   })
 })
 
-const dropDownFilter = () => {
-}
+const ListMediaPhotographer = () => {
 
-
-const calculTotalLike = () => {
-  const nombreDeLikes = document.querySelectorAll(".nombres-de-likes")
-  nombreDeLikes.forEach((element) => {
-    element = Number(element.textContent)
-    count += element
-    totalLikes.textContent = count
-  })
-}
-
-const ajoutLike = (like) => {
-  if (like.dataset.select == "true") {
-    like.dataset.select = "false"
-    like.childNodes[1].textContent = Number(like.childNodes[1].textContent) - 1
-    like.childNodes[2].classList.remove("remplissage")
-  } else {
-    like.dataset.select = "true"
-    like.childNodes[1].textContent = Number(like.childNodes[1].textContent) + 1
-    like.childNodes[2].classList.add("remplissage")
-  }
-}
-
-const incrementationLike = () => {
-  const likes = document.querySelectorAll(".carte__infos__favs")
-  likes.forEach((element) =>
-    element.addEventListener("click", () => {
-      ajoutLike(element)
-      count = 0
-      calculTotalLike()
-    })
-  )
-}
-
-const ListMediaPhotographer = (selectedPhotographer, mediasPhotographer) => {
-  let trie = ""
-  if (trie === "") {
+  if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
   }
   mediasPhotographer.forEach((photographeMedia) => {
@@ -108,5 +76,34 @@ const ListMediaPhotographer = (selectedPhotographer, mediasPhotographer) => {
         </div>
       </div>
     `
+  })
+}
+
+const dropDownFilter = () => {
+  let option = ""
+  dropDownHide.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      sorted = event.currentTarget.textContent
+      console.log('sorted =>', sorted)
+      option = currentFilter.textContent
+      console.log('option =>', option)
+      if (sorted.includes("Date")) {
+        mediasPhotographer.sort((a, b) => (a.date < b.date ? 1 : -1))
+        element.textContent = option
+        currentFilter.textContent = sorted
+      }
+      if (sorted.includes("Titre")) {
+        mediasPhotographer.sort((a, b) => (a.title < b.title ? 1 : -1))
+        element.textContent = option
+        currentFilter.textContent = sorted
+      }
+      if (sorted === "Popularité") {
+        mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
+        element.textContent = option
+        currentFilter.textContent = sorted
+      }
+      mediaContainer.innerHTML = ""
+      ListMediaPhotographer(selectedPhotographer, mediasPhotographer)
+    })
   })
 }
