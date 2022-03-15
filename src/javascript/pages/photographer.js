@@ -1,9 +1,10 @@
 const idPhotographer = new URLSearchParams(window.location.search).get("identifiant")
 const header = document.querySelector(".header")
 const photographerProfile = document.querySelector(".photographer")
-const dropDown = document.querySelector(".dropDown")
 const mediaContainer = document.querySelector(".mediaContainer")
-
+const dropDownButton = document.querySelector(".dropDown_list_visible")
+const dropDownImage = document.querySelector(".dropDown_list_visible_image")
+const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
 
 const fetchPhotographer = async() => {
   return await fetch("photographers.json")
@@ -16,6 +17,7 @@ fetchPhotographer().then((data) => {
   profileDescription(selectedPhotographer)
   dropDownFilter(selectedPhotographer)
   ListMediaPhotographer(selectedPhotographer, mediasPhotographer)
+  incrementationLike()
 })
 
 header.innerHTML =
@@ -38,22 +40,55 @@ const profileDescription = (selectedPhotographer) => {
   `
 }
 
+
+dropDownButton.addEventListener("click", () => {
+  dropDownImage.classList.toggle("chevronUp")
+  dropDownHide.forEach((element) => {
+    element.classList.toggle("displayBlock")
+  })
+})
+
 const dropDownFilter = () => {
-  dropDown.innerHTML = `    
-    <p class="dropDown_label">Trier par</p>
-    <div class="dropDown_list">
-      <button class="dropDown_list_visible">
-        Popularité <img class="dropDown_list_visible_image" src="./src/assets/images/chevron-down.png" alt="Fisheye Home page"/>
-      </button>
-      <div class="dropDown_list_border"></div>
-      <button class="dropDown_list_hide">Date</button>
-      <div class="dropDown_list_border"></div>
-      <button class="dropDown_list_hide">Titre</button>
-    </div>
-  `
+}
+
+
+const calculTotalLike = () => {
+  const nombreDeLikes = document.querySelectorAll(".nombres-de-likes")
+  nombreDeLikes.forEach((element) => {
+    element = Number(element.textContent)
+    count += element
+    totalLikes.textContent = count
+  })
+}
+
+const ajoutLike = (like) => {
+  if (like.dataset.select == "true") {
+    like.dataset.select = "false"
+    like.childNodes[1].textContent = Number(like.childNodes[1].textContent) - 1
+    like.childNodes[2].classList.remove("remplissage")
+  } else {
+    like.dataset.select = "true"
+    like.childNodes[1].textContent = Number(like.childNodes[1].textContent) + 1
+    like.childNodes[2].classList.add("remplissage")
+  }
+}
+
+const incrementationLike = () => {
+  const likes = document.querySelectorAll(".carte__infos__favs")
+  likes.forEach((element) =>
+    element.addEventListener("click", () => {
+      ajoutLike(element)
+      count = 0
+      calculTotalLike()
+    })
+  )
 }
 
 const ListMediaPhotographer = (selectedPhotographer, mediasPhotographer) => {
+  let trie = ""
+  if (trie === "") {
+    mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
+  }
   mediasPhotographer.forEach((photographeMedia) => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
