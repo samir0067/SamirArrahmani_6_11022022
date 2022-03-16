@@ -62,7 +62,9 @@
       font-weight: 500;
       color: $colorShinshu;
       background: transparent;
-      & i {
+      &_heart {
+        width: 25px;
+        height: 25px;
         align-self: center;
         margin-left: 10px;
         margin-right: 2px;

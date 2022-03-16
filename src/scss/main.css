@@ -22,6 +22,12 @@ a {
   color: #000000;
 }
 
+p {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -133,6 +139,27 @@ a {
   border-top: 2px solid #ffffff;
   position: relative;
   top: -20px;
+}
+
+@keyframes remplissage-coeur {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+.likeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  right: 3rem;
+  background-color: #d3573c;
+  height: 89px;
+  width: 376px;
+  border-radius: 5px 5px 0 0;
 }
 
 .header {
@@ -303,7 +330,9 @@ a {
   color: #901c1c;
   background: transparent;
 }
-.mediaCard_details_favorites i {
+.mediaCard_details_favorites_heart {
+  width: 25px;
+  height: 25px;
   align-self: center;
   margin-left: 10px;
   margin-right: 2px;
