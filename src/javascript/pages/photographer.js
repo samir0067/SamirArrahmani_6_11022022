@@ -7,7 +7,6 @@ const currentFilter = document.querySelector(".dropDown_list_visible_current")
 const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
 const likeContainer = document.querySelector(".likeContainer")
-const numberLikesByDay = document.querySelectorAll(".mediaCard_details_favorites_likes")
 const likesTotal = document.querySelectorAll(".likeContainer_likes_total")
 
 let count = 0
@@ -108,6 +107,7 @@ const dropDownFilter = () => {
 }
 
 const displayLikeContainer = () => {
+  const numberLikesByDay = document.querySelectorAll(".mediaCard_details_favorites_likes")
   numberLikesByDay.forEach((element) => {
     element = Number(element.innerHTML)
     count += element
