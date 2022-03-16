@@ -56,28 +56,15 @@
     }
     &_favorites {
       display: flex;
-      border: none;
-      cursor: pointer;
       font-size: 20px;
       font-weight: 500;
       color: $colorShinshu;
-      background: transparent;
       &_heart {
-        width: 25px;
         height: 25px;
-        align-self: center;
         margin-left: 10px;
-        margin-right: 2px;
       }
     }
   }
-}
-
-.remplissage {
-  background: $colorShinshu;
-  -webkit-background-clip: text;
-  -webkit-text-stroke: 1px transparent;
-  animation: remplissage-coeur 500ms;
 }
 
 @media (max-width: map-get($breakpoints, laptop)) {

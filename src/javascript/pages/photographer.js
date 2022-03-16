@@ -6,7 +6,11 @@ const dropDownButton = document.querySelector(".dropDown_list_visible")
 const currentFilter = document.querySelector(".dropDown_list_visible_current")
 const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
+const likeContainer = document.querySelector(".likeContainer")
+const numberLikesByDay = document.querySelectorAll(".mediaCard_details_favorites_likes")
+const likesTotal = document.querySelectorAll(".likeContainer_likes_total")
 
+let count = 0
 let sorted = ""
 let typeFilter = ""
 let selectedPhotographer = ""
@@ -21,8 +25,9 @@ fetchPhotographer().then((data) => {
   selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
   profileDescription(selectedPhotographer)
-  dropDownFilter(mediasPhotographer)
-  ListMediaPhotographer(selectedPhotographer, mediasPhotographer)
+  dropDownFilter()
+  ListMediaPhotographer()
+  displayLikeContainer()
 })
 
 header.innerHTML =
@@ -45,17 +50,8 @@ const profileDescription = (selectedPhotographer) => {
   `
 }
 
-
-dropDownButton.addEventListener("click", () => {
-  dropDownImage.classList.toggle("chevronUp")
-  dropDownHide.forEach((element) => {
-    element.classList.toggle("displayBlock")
-  })
-})
-
 const ListMediaPhotographer = () => {
-  {
-    sorted === "" &&
+  if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
   }
   mediasPhotographer.forEach((photographeMedia) => {
@@ -70,15 +66,22 @@ const ListMediaPhotographer = () => {
         </button>
         <div class="mediaCard_details">
           <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
-          <button class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}" type="button">
-            <span class="mediaCard_details_favorites_heart">${photographeMedia.likes}</span>
-            <i class="fa-solid fa-heart"></i>
-          </button>
+          <div class="mediaCard_details_favorites">
+            <span class="mediaCard_details_favorites_likes">${photographeMedia.likes}</span>
+            <img class="mediaCard_details_favorites_heart" src="./src/assets/images/redHeart.png" alt="red heart"/>
+          </div>
         </div>
       </div>
     `
   })
 }
+
+dropDownButton.addEventListener("click", () => {
+  dropDownImage.classList.toggle("chevronUp")
+  dropDownHide.forEach((element) => {
+    element.classList.toggle("displayBlock")
+  })
+})
 
 const dropDownFilter = () => {
   dropDownHide.forEach((element) => {
@@ -102,4 +105,21 @@ const dropDownFilter = () => {
       ListMediaPhotographer()
     })
   })
+}
+
+const displayLikeContainer = () => {
+  numberLikesByDay.forEach((element) => {
+    element = Number(element.innerHTML)
+    count += element
+    likesTotal.innerHTML = count
+  })
+  likeContainer.innerHTML = `
+     <div class="likeContainer_likes">
+        <span class="likeContainer_likes_total">${likesTotal.innerHTML}</span>
+        <img class="likeContainer_likes_heart" src="./src/assets/images/blackHeart.png" alt="black heart"/>
+    </div>
+    <div class="likeContainer_price">
+      <p class="likeContainer_price_oneDay">${selectedPhotographer.price} / jour</p>
+    </div>
+  `
 }

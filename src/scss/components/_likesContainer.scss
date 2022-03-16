@@ -1,0 +1,35 @@
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.likeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  right: 3rem;
+  background-color: $colorSpiritWarrior;
+  height: 60px;
+  width: 376px;
+  border-radius: 5px 5px 0 0;
+  &_likes {
+    &_total {
+      color: black;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    &_heart {
+      height: 21px;
+      margin-left: 10px;
+      margin-bottom: -3px;
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints, tablet)) {
+  .likeContainer {
+    height: 45px;
+    width: 310px;
+    right: 0.625rem;
+  }
+}

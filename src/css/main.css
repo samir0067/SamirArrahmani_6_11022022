@@ -141,14 +141,6 @@ p {
   top: -20px;
 }
 
-@keyframes remplissage-coeur {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
 .likeContainer {
   display: flex;
   align-items: center;
@@ -157,11 +149,28 @@ p {
   bottom: 0;
   right: 3rem;
   background-color: #d3573c;
-  height: 89px;
+  height: 60px;
   width: 376px;
   border-radius: 5px 5px 0 0;
 }
+.likeContainer_likes_total {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.likeContainer_likes_heart {
+  height: 21px;
+  margin-left: 10px;
+  margin-bottom: -3px;
+}
 
+@media (max-width: 768px) {
+  .likeContainer {
+    height: 45px;
+    width: 310px;
+    right: 0.625rem;
+  }
+}
 .header {
   margin: 4rem;
   display: flex;
@@ -323,26 +332,13 @@ p {
 }
 .mediaCard_details_favorites {
   display: flex;
-  border: none;
-  cursor: pointer;
   font-size: 20px;
   font-weight: 500;
   color: #901c1c;
-  background: transparent;
 }
 .mediaCard_details_favorites_heart {
-  width: 25px;
   height: 25px;
-  align-self: center;
   margin-left: 10px;
-  margin-right: 2px;
-}
-
-.remplissage {
-  background: #901c1c;
-  -webkit-background-clip: text;
-  -webkit-text-stroke: 1px transparent;
-  animation: remplissage-coeur 500ms;
 }
 
 @media (max-width: 1024px) {
