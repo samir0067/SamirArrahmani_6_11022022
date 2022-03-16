@@ -7,7 +7,7 @@ const currentFilter = document.querySelector(".dropDown_list_visible_current")
 const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
 
-let sorted = "Popularité"
+let sorted = ""
 let typeFilter = ""
 let selectedPhotographer = ""
 let mediasPhotographer = []
@@ -54,6 +54,10 @@ dropDownButton.addEventListener("click", () => {
 })
 
 const ListMediaPhotographer = () => {
+  {
+    sorted === "" &&
+    mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
+  }
   mediasPhotographer.forEach((photographeMedia) => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
@@ -85,13 +89,11 @@ const dropDownFilter = () => {
         mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
         element.innerHTML = typeFilter
         currentFilter.innerHTML = sorted
-      }
-      if (sorted.includes("Date")) {
+      } else if (sorted.includes("Date")) {
         mediasPhotographer.sort((a, b) => (a.date > b.date ? 1 : -1))
         element.innerHTML = typeFilter
         currentFilter.innerHTML = sorted
-      }
-      if (sorted.includes("Titre")) {
+      } else if (sorted.includes("Titre")) {
         mediasPhotographer.sort((a, b) => (a.title > b.title ? 1 : -1))
         element.innerHTML = typeFilter
         currentFilter.innerHTML = sorted
