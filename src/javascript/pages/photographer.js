@@ -125,11 +125,7 @@ const mediaPhotographerList = () => {
   incrementalLikes()
 }
 
-const displayPriceOneDay = () => {
-  likeContainerPriceOneDay.innerHTML = `
-    ${selectedPhotographer.price} / jour
-  `
-}
+const displayPriceOneDay = () => likeContainerPriceOneDay.innerHTML = `${selectedPhotographer.price} / jour`
 
 const totalLikesCalculation = () => {
   const numberLikesByMedia = document.querySelectorAll(".mediaCard_details_favorites_likes")
