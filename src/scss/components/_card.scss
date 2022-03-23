@@ -17,7 +17,7 @@
     & h2 {
       font-size: 2.2rem;
       font-weight: 100;
-      color: $colorSpiritWarrior;
+      color: $colorSecondary;
     }
     &:hover img {
       box-shadow: $extendShadow;
@@ -30,7 +30,7 @@
       font-weight: 100;
       font-size: 0.9rem;
       margin-top: 0.3rem;
-      color: $colorSpiritWarrior;
+      color: $colorSecondary;
     }
     &_description {
       font-size: 0.7rem;
@@ -40,7 +40,7 @@
     &_price {
       font-size: 0.7rem;
       margin-top: 0.3rem;
-      color: lighten($colorBrilliantLicorice, 30);
+      color: lighten($colorGrey, 30);
     }
   }
 }

@@ -8,22 +8,22 @@
   align-items: center;
   justify-content: space-around;
   border-radius: 5px;
-  background-color: $colorDoctor;
+  background-color: $colorLight;
   &_profile {
     &_name {
       font-size: 64px;
       font-weight: 400;
-      color: $colorSpiritWarrior;
+      color: $colorSecondary;
     }
     &_address {
       font-size: 24px;
       font-weight: 400;
-      color: $colorShinshu;
+      color: $colorPrimary;
     }
     &_description {
       font-size: 18px;
       font-weight: 400;
-      color: $colorBrilliantLicorice;
+      color: $colorGrey;
     }
   }
   & button {

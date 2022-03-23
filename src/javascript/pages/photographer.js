@@ -25,7 +25,7 @@ fetchPhotographer().then((data) => {
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
   profileDescription(selectedPhotographer)
   dropDownFilter()
-  mediaPhotographerListWithIncrementalLikes()
+  mediaPhotographerList()
   displayLikeContainer()
   totalLikesCalculation()
 })
@@ -76,12 +76,29 @@ const dropDownFilter = () => {
         currentFilter.innerHTML = sorted
       }
       mediaContainer.innerHTML = ""
-      mediaPhotographerListWithIncrementalLikes()
+      mediaPhotographerList()
     })
   })
 }
 
-const mediaPhotographerListWithIncrementalLikes = () => {
+const incrementalLikes = () => {
+  const buttonLikes = document.querySelectorAll(".mediaCard_details_favorites")
+  buttonLikes.forEach((e) =>
+    e.addEventListener("click", () => {
+      if (e.dataset.select === "true") {
+        e.dataset.select = "false"
+        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) - 1
+      } else {
+        e.dataset.select = "true"
+        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) + 1
+      }
+      count = 0
+      totalLikesCalculation()
+    })
+  )
+}
+
+const mediaPhotographerList = () => {
   if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
   }
@@ -105,20 +122,7 @@ const mediaPhotographerListWithIncrementalLikes = () => {
       </div>
     `
   })
-  const buttonLikes = document.querySelectorAll(".mediaCard_details_favorites")
-  buttonLikes.forEach((e) =>
-    e.addEventListener("click", () => {
-      if (e.dataset.select === "true") {
-        e.dataset.select = "false"
-        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) - 1
-      } else {
-        e.dataset.select = "true"
-        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) + 1
-      }
-      count = 0
-      totalLikesCalculation()
-    })
-  )
+  incrementalLikes()
 }
 
 const displayLikeContainer = () => {
