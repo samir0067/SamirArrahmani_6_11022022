@@ -27,7 +27,7 @@ fetchPhotographer().then((data) => {
   dropDownFilter()
   mediaPhotographerListWithIncrementalLikes()
   displayLikeContainer()
-  calculTotalLike()
+  totalLikesCalculation()
 })
 
 header.innerHTML =
@@ -48,6 +48,37 @@ const profileDescription = (selectedPhotographer) => {
       src="./src/assets/photographersAndMedia/PhotographersPhotos/${selectedPhotographer.portrait}" 
     />
   `
+}
+
+dropDownButton.addEventListener("click", () => {
+  dropDownImage.classList.toggle("chevronUp")
+  dropDownHide.forEach((element) => {
+    element.classList.toggle("displayBlock")
+  })
+})
+
+const dropDownFilter = () => {
+  dropDownHide.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      typeFilter = currentFilter.innerHTML
+      sorted = event.currentTarget.innerHTML
+      if (sorted === "Popularité") {
+        mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
+        element.innerHTML = typeFilter
+        currentFilter.innerHTML = sorted
+      } else if (sorted.includes("Date")) {
+        mediasPhotographer.sort((a, b) => (a.date > b.date ? 1 : -1))
+        element.innerHTML = typeFilter
+        currentFilter.innerHTML = sorted
+      } else if (sorted.includes("Titre")) {
+        mediasPhotographer.sort((a, b) => (a.title > b.title ? 1 : -1))
+        element.innerHTML = typeFilter
+        currentFilter.innerHTML = sorted
+      }
+      mediaContainer.innerHTML = ""
+      mediaPhotographerListWithIncrementalLikes()
+    })
+  })
 }
 
 const mediaPhotographerListWithIncrementalLikes = () => {
@@ -85,53 +116,22 @@ const mediaPhotographerListWithIncrementalLikes = () => {
         e.firstElementChild.textContent = Number(e.firstElementChild.textContent) + 1
       }
       count = 0
-      calculTotalLike()
+      totalLikesCalculation()
     })
   )
-}
-
-dropDownButton.addEventListener("click", () => {
-  dropDownImage.classList.toggle("chevronUp")
-  dropDownHide.forEach((element) => {
-    element.classList.toggle("displayBlock")
-  })
-})
-
-const dropDownFilter = () => {
-  dropDownHide.forEach((element) => {
-    element.addEventListener("click", (event) => {
-      typeFilter = currentFilter.innerHTML
-      sorted = event.currentTarget.innerHTML
-      if (sorted === "Popularité") {
-        mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
-        element.innerHTML = typeFilter
-        currentFilter.innerHTML = sorted
-      } else if (sorted.includes("Date")) {
-        mediasPhotographer.sort((a, b) => (a.date > b.date ? 1 : -1))
-        element.innerHTML = typeFilter
-        currentFilter.innerHTML = sorted
-      } else if (sorted.includes("Titre")) {
-        mediasPhotographer.sort((a, b) => (a.title > b.title ? 1 : -1))
-        element.innerHTML = typeFilter
-        currentFilter.innerHTML = sorted
-      }
-      mediaContainer.innerHTML = ""
-      mediaPhotographerListWithIncrementalLikes()
-    })
-  })
-}
-
-const calculTotalLike = () => {
-  const numberLikesByDay = document.querySelectorAll(".mediaCard_details_favorites_likes")
-  numberLikesByDay.forEach((element) => {
-    element = Number(element.innerHTML)
-    count += element
-    likesTotal.innerHTML = count
-  })
 }
 
 const displayLikeContainer = () => {
   likeContainerPriceOneDay.innerHTML = `
     ${selectedPhotographer.price} / jour
   `
+}
+
+const totalLikesCalculation = () => {
+  const numberLikesByMedia = document.querySelectorAll(".mediaCard_details_favorites_likes")
+  numberLikesByMedia.forEach((element) => {
+    element = Number(element.innerHTML)
+    count += element
+    likesTotal.innerHTML = count
+  })
 }
