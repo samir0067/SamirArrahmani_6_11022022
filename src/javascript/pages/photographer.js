@@ -87,7 +87,7 @@ const incrementalLikes = () => {
     e.addEventListener("click", () => {
       if (e.dataset.select === "true") {
         e.dataset.select = "false"
-        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) - 1
+        e.firstElementChild.textContent = Number(e.firstElementChild.innerHTML) - 1
       } else {
         e.dataset.select = "true"
         e.firstElementChild.textContent = Number(e.firstElementChild.textContent) + 1
@@ -98,6 +98,14 @@ const incrementalLikes = () => {
   )
 }
 
+const displayMediaType = (item) => {
+  if (item.hasOwnProperty("video")) {
+    return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}"/>`
+  } else {
+    return `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.image}" alt="${item.image}">`
+  }
+}
+
 const mediaPhotographerList = () => {
   if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
@@ -106,11 +114,7 @@ const mediaPhotographerList = () => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
         <button class="mediaCard_link" title="${photographeMedia.title}">
-          ${photographeMedia.hasOwnProperty("video") ? (
-      `<video data-name="azer" class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.video}"/>`
-    ) : (
-      `<img data-name="azer" class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.image}" alt="${photographeMedia.image}">`
-    )}
+          ${displayMediaType(photographeMedia)}
         </button>
         <div class="mediaCard_details">
           <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
