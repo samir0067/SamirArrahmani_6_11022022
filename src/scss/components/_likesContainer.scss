@@ -13,17 +13,18 @@
   width: 376px;
   border-radius: 5px 5px 0 0;
   &_likes {
-    &_total {
-      color: black;
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
     &_heart {
       height: 21px;
       margin-left: 10px;
       margin-bottom: -3px;
     }
   }
+}
+
+#likeContainer_likes_total {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 @media (max-width: map-get($breakpoints, tablet)) {
