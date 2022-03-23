@@ -24,9 +24,9 @@ fetchPhotographer().then((data) => {
   selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
   profileDescription(selectedPhotographer)
-  dropDownFilter()
   mediaPhotographerListWithIncrementalLikes()
-  displayLikeContainer()
+  dropDownFilter()
+  displayDailyPrice()
   totalLikesCalculation()
 })
 
@@ -81,6 +81,15 @@ const dropDownFilter = () => {
   })
 }
 
+// Affichage des médias-----------------------------------------------------
+function mediaTypeDisplay(item) {
+  if (item.hasOwnProperty("video")) {
+    return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}" autoplay/>`
+  } else {
+    return `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.image}" alt="${item.image}">`
+  }
+}
+
 const mediaPhotographerListWithIncrementalLikes = () => {
   if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
@@ -88,12 +97,8 @@ const mediaPhotographerListWithIncrementalLikes = () => {
   mediasPhotographer.forEach((photographeMedia) => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
-        <button class="mediaCard_link" title="${photographeMedia.title}">
-          ${photographeMedia.hasOwnProperty("video") ? (
-      `<video data-name="azer" class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.video}"/>`
-    ) : (
-      `<img data-name="azer" class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.image}" alt="${photographeMedia.image}">`
-    )}
+        <button class="mediaCard_link" title="${photographeMedia.title}" data-mediaId="${photographeMedia.id}">
+          ${mediaTypeDisplay(photographeMedia)}
         </button>
         <div class="mediaCard_details">
           <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
@@ -121,10 +126,10 @@ const mediaPhotographerListWithIncrementalLikes = () => {
   )
 }
 
-const displayLikeContainer = () => {
+const displayDailyPrice = () => {
   likeContainerPriceOneDay.innerHTML = `
-    ${selectedPhotographer.price} / jour
-  `
+      ${selectedPhotographer.price} / jour
+        `
 }
 
 const totalLikesCalculation = () => {

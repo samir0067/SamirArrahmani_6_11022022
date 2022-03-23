@@ -14,12 +14,16 @@
   <title>Fisheye - photographe</title>
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="header"></header>
+
 <!-- MAIN -->
 <main class="main">
+
   <!-- PROFILE -->
   <section class="photographer"></section>
+
   <!-- DROPDOWN -->
   <section class="dropDown">
     <p class="dropDown_label">Trier par</p>
@@ -38,16 +42,34 @@
       </button>
     </div>
   </section>
+
   <!-- MEDIA -->
   <section class="mediaContainer"></section>
+
   <!-- LIKES -->
   <section class="likeContainer">
     <div class="likeContainer_likes">
       <span id="likeContainer_likes_total">0</span>
-      <img class="likeContainer_likes_heart" src="./src/assets/images/blackHeart.png" alt="black heart"/>
+      <img class="likeContainer_likes_heart" src="./src/assets/images/blackHeart.png" alt="coeur noir"/>
     </div>
     <div class="likeContainer_price">
       <p class="likeContainer_price_oneDay"></p>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <section class="lightbox">
+    <div class="lightbox_container">
+      <button class="lightbox_container_close focus-lightbox" type="button">
+        <img src="./src/assets/images/redClose.svg" alt="bouton de fermeture"/>
+      </button>
+      <button class="lightbox_container_arrowPrevious focus-lightbox" type="button">
+        <img src="src/assets/images/arrowPrevious.svg" alt="flèche précédente"/>
+      </button>
+      <figure class="lightbox_container_media"></figure>
+      <button class="lightbox_container_arrowNext focus-lightbox" type="button">
+        <img src="src/assets/images/arrowNext.svg" alt="flèche suivante"/>
+      </button>
     </div>
   </section>
 
