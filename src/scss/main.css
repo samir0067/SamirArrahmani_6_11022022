@@ -153,15 +153,16 @@ p {
   width: 376px;
   border-radius: 5px 5px 0 0;
 }
-.likeContainer_likes_total {
-  color: black;
-  font-size: 1.25rem;
-  font-weight: 500;
-}
 .likeContainer_likes_heart {
   height: 21px;
   margin-left: 10px;
   margin-bottom: -3px;
+}
+
+#likeContainer_likes_total {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -285,11 +286,6 @@ p {
   margin: 50px;
 }
 
-@media (max-width: 768px) {
-  .main {
-    justify-content: center;
-  }
-}
 .mediaContainer {
   display: flex;
   justify-content: space-between;
@@ -334,6 +330,9 @@ p {
   display: flex;
   font-size: 20px;
   font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   color: #901c1c;
 }
 .mediaCard_details_favorites_heart {
@@ -355,6 +354,11 @@ p {
   }
   .mediaCard_details_favorites {
     font-size: 18px;
+  }
+}
+@media (max-width: 768px) {
+  .main {
+    justify-content: center;
   }
 }
 
