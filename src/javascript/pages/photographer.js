@@ -26,7 +26,7 @@ fetchPhotographer().then((data) => {
   profileDescription(selectedPhotographer)
   dropDownFilter()
   mediaPhotographerList()
-  displayLikeContainer()
+  displayPriceOneDay()
   totalLikesCalculation()
 })
 
@@ -125,7 +125,7 @@ const mediaPhotographerList = () => {
   incrementalLikes()
 }
 
-const displayLikeContainer = () => {
+const displayPriceOneDay = () => {
   likeContainerPriceOneDay.innerHTML = `
     ${selectedPhotographer.price} / jour
   `
