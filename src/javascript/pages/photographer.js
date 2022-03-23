@@ -6,8 +6,8 @@ const dropDownButton = document.querySelector(".dropDown_list_visible")
 const currentFilter = document.querySelector(".dropDown_list_visible_current")
 const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
-const likeContainer = document.querySelector(".likeContainer")
-const likesTotal = document.querySelectorAll(".likeContainer_likes_total")
+const likeContainerPriceOneDay = document.querySelector(".likeContainer_price_oneDay")
+const likesTotal = document.getElementById("likeContainer_likes_total")
 
 let count = 0
 let sorted = ""
@@ -25,8 +25,9 @@ fetchPhotographer().then((data) => {
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
   profileDescription(selectedPhotographer)
   dropDownFilter()
-  ListMediaPhotographer()
+  mediaPhotographerListWithIncrementalLikes()
   displayLikeContainer()
+  calculTotalLike()
 })
 
 header.innerHTML =
@@ -49,7 +50,7 @@ const profileDescription = (selectedPhotographer) => {
   `
 }
 
-const ListMediaPhotographer = () => {
+const mediaPhotographerListWithIncrementalLikes = () => {
   if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
   }
@@ -58,21 +59,35 @@ const ListMediaPhotographer = () => {
       <div class="mediaCard">
         <button class="mediaCard_link" title="${photographeMedia.title}">
           ${photographeMedia.hasOwnProperty("video") ? (
-      `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.video}"/>`
+      `<video data-name="azer" class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.video}"/>`
     ) : (
-      `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.image}" alt="${photographeMedia.image}">`
+      `<img data-name="azer" class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${photographeMedia.image}" alt="${photographeMedia.image}">`
     )}
         </button>
         <div class="mediaCard_details">
           <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
-          <div class="mediaCard_details_favorites">
+          <button type="button" class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}">
             <span class="mediaCard_details_favorites_likes">${photographeMedia.likes}</span>
             <img class="mediaCard_details_favorites_heart" src="./src/assets/images/redHeart.png" alt="red heart"/>
-          </div>
+          </button>
         </div>
       </div>
     `
   })
+  const buttonLikes = document.querySelectorAll(".mediaCard_details_favorites")
+  buttonLikes.forEach((e) =>
+    e.addEventListener("click", () => {
+      if (e.dataset.select === "true") {
+        e.dataset.select = "false"
+        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) - 1
+      } else {
+        e.dataset.select = "true"
+        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) + 1
+      }
+      count = 0
+      calculTotalLike()
+    })
+  )
 }
 
 dropDownButton.addEventListener("click", () => {
@@ -85,8 +100,8 @@ dropDownButton.addEventListener("click", () => {
 const dropDownFilter = () => {
   dropDownHide.forEach((element) => {
     element.addEventListener("click", (event) => {
-      sorted = event.currentTarget.innerHTML
       typeFilter = currentFilter.innerHTML
+      sorted = event.currentTarget.innerHTML
       if (sorted === "Popularité") {
         mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
         element.innerHTML = typeFilter
@@ -101,25 +116,22 @@ const dropDownFilter = () => {
         currentFilter.innerHTML = sorted
       }
       mediaContainer.innerHTML = ""
-      ListMediaPhotographer()
+      mediaPhotographerListWithIncrementalLikes()
     })
   })
 }
 
-const displayLikeContainer = () => {
+const calculTotalLike = () => {
   const numberLikesByDay = document.querySelectorAll(".mediaCard_details_favorites_likes")
   numberLikesByDay.forEach((element) => {
     element = Number(element.innerHTML)
     count += element
     likesTotal.innerHTML = count
   })
-  likeContainer.innerHTML = `
-     <div class="likeContainer_likes">
-        <span class="likeContainer_likes_total">${likesTotal.innerHTML}</span>
-        <img class="likeContainer_likes_heart" src="./src/assets/images/blackHeart.png" alt="black heart"/>
-    </div>
-    <div class="likeContainer_price">
-      <p class="likeContainer_price_oneDay">${selectedPhotographer.price} / jour</p>
-    </div>
+}
+
+const displayLikeContainer = () => {
+  likeContainerPriceOneDay.innerHTML = `
+    ${selectedPhotographer.price} / jour
   `
 }
