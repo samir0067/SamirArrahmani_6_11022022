@@ -15,11 +15,11 @@ let typeFilter = ""
 let selectedPhotographer = ""
 let mediasPhotographer = []
 
+// ------------ Recuperation et traitement des données depuis le fichier photographers.json ------------
 const fetchPhotographer = async() => {
   return await fetch("photographers.json")
     .then((response) => response.json())
 }
-
 fetchPhotographer().then((data) => {
   selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
@@ -30,11 +30,13 @@ fetchPhotographer().then((data) => {
   totalLikesCalculation()
 })
 
+// ----------- Affichage du logo avec header ----------------------
 header.innerHTML =
   `<a href="./index.html" tabindex="1">
     <img class="header_logo" src="./src/assets/images/logo.svg" alt="Fisheye Home page"/>
   </a>`
 
+// ------------ Affichage de la description du profil actuel ------------------
 const profileDescription = (selectedPhotographer) => {
   photographerProfile.innerHTML = `
     <div class="photographer_profile">
@@ -50,6 +52,7 @@ const profileDescription = (selectedPhotographer) => {
   `
 }
 
+// Écoutez les événements au moment du click du bouton déroulant.
 dropDownButton.addEventListener("click", () => {
   dropDownImage.classList.toggle("chevronUp")
   dropDownHide.forEach((element) => {
@@ -57,6 +60,7 @@ dropDownButton.addEventListener("click", () => {
   })
 })
 
+// définir une boucle pour trier les médias en fonction du filtre actuel
 const dropDownFilter = () => {
   dropDownHide.forEach((element) => {
     element.addEventListener("click", (event) => {
@@ -81,6 +85,7 @@ const dropDownFilter = () => {
   })
 }
 
+// incrementer les like dynamiquement avec au click
 const incrementalLikes = () => {
   const buttonLikes = document.querySelectorAll(".mediaCard_details_favorites")
   buttonLikes.forEach((e) =>
@@ -98,6 +103,7 @@ const incrementalLikes = () => {
   )
 }
 
+// afficher la balise correspondent au type de média
 const displayMediaType = (item) => {
   if (item.hasOwnProperty("video")) {
     return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}"/>`
@@ -106,6 +112,7 @@ const displayMediaType = (item) => {
   }
 }
 
+// afficher la liste des médias en fonction du photographe actuel
 const mediaPhotographerList = () => {
   if (sorted === "") {
     mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
@@ -129,8 +136,10 @@ const mediaPhotographerList = () => {
   incrementalLikes()
 }
 
+// affichage du tarif journalier du photographe actuel
 const displayPriceOneDay = () => likeContainerPriceOneDay.innerHTML = `${selectedPhotographer.price} / jour`
 
+// affichage total des likes du photographe actuel
 const totalLikesCalculation = () => {
   const numberLikesByMedia = document.querySelectorAll(".mediaCard_details_favorites_likes")
   numberLikesByMedia.forEach((element) => {
