@@ -8,12 +8,21 @@ const dropDownImage = document.querySelector(".dropDown_list_visible_image")
 const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
 const likeContainerPriceOneDay = document.querySelector(".likeContainer_price_oneDay")
 const likesTotal = document.getElementById("likeContainer_likes_total")
+const lightbox = document.querySelector(".lightbox")
+const lightboxContainer = document.querySelector(".lightbox_container_media")
+const endLightbox = document.querySelector(".lightbox_container_end")
+const nextLightbox = document.querySelector(".lightbox_container_next")
+const prevLightbox = document.querySelector(".lightbox_container_previous")
+const target = document.getElementsByClassName("target")
 
 let count = 0
 let sorted = ""
 let typeFilter = ""
 let selectedPhotographer = ""
 let mediasPhotographer = []
+let currentIndex = 0
+let firstTargetLightbox = target[0]
+let lastTargetLightbox = target[target.length - 1]
 
 // ------------ Recuperation et traitement des données depuis le fichier photographers.json ------------
 const fetchPhotographer = async() => {
@@ -33,7 +42,7 @@ fetchPhotographer().then((data) => {
 // ----------- Affichage du logo avec header ----------------------
 header.innerHTML =
   `<a href="./index.html" tabindex="1">
-    <img class="header_logo" src="./src/assets/images/logo.svg" alt="Fisheye Home page"/>
+    <img class="header_logo" src="./src/assets/logo.svg" alt="Fisheye Home page"/>
   </a>`
 
 // ------------ Affichage de la description du profil actuel ------------------
@@ -106,7 +115,7 @@ const incrementalLikes = () => {
 // afficher la balise correspondent au type de média
 const displayMediaType = (item) => {
   if (item.hasOwnProperty("video")) {
-    return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}"/>`
+    return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}" autoplay/>`
   } else {
     return `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.image}" alt="${item.image}">`
   }
@@ -120,19 +129,20 @@ const mediaPhotographerList = () => {
   mediasPhotographer.forEach((photographeMedia) => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
-        <button class="mediaCard_link" title="${photographeMedia.title}">
+        <button class="mediaCard_link" title="${photographeMedia.title}" data-id="${photographeMedia.id}">
           ${displayMediaType(photographeMedia)}
         </button>
         <div class="mediaCard_details">
           <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
           <button type="button" class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}">
             <span class="mediaCard_details_favorites_likes">${photographeMedia.likes}</span>
-            <img class="mediaCard_details_favorites_heart" src="./src/assets/images/redHeart.png" alt="red heart"/>
+            <img class="mediaCard_details_favorites_heart" src="./src/assets/redHeart.png" alt="red heart"/>
           </button>
         </div>
       </div>
     `
   })
+  openLightbox()
   incrementalLikes()
 }
 
@@ -148,3 +158,86 @@ const totalLikesCalculation = () => {
     likesTotal.innerHTML = count
   })
 }
+
+// Ouverture de la Lightbox
+const openLightbox = () => {
+  firstTargetLightbox.focus()
+  const cartes = document.querySelectorAll(".mediaCard_link")
+  cartes.forEach((carte, index) =>
+    carte.addEventListener("click", () => {
+      currentIndex = index
+      lightbox.style.display = "flex"
+      lightbox.setAttribute
+      lightboxView(currentIndex)
+      const video = lightboxContainer.childNodes[1]
+      video.setAttribute("controls", "controls")
+    })
+  )
+}
+
+// Affichage Lightbox
+const lightboxView = (id) => {
+  lightboxContainer.innerHTML = `
+    ${displayMediaType(mediasPhotographer[id])}
+    <figcaption>${mediasPhotographer[id].title}</figcaption>
+  `
+}
+
+// Fermeture Lightbox
+const closeLightbox = () => {
+  lightbox.style.display = "none"
+}
+endLightbox.addEventListener("click", closeLightbox)
+
+const nextDisplay = () => {
+  currentIndex++
+  if (currentIndex === mediasPhotographer.length) {
+    currentIndex = 0
+  }
+  lightboxView(currentIndex)
+  const video = lightboxContainer.childNodes[1]
+  video.setAttribute("controls", "controls")
+}
+nextLightbox.addEventListener("click", nextDisplay)
+
+const previousDisplay = () => {
+  currentIndex--
+  if (currentIndex < 0) {
+    currentIndex = mediasPhotographer.length - 1
+  }
+  lightboxView(currentIndex)
+  const video = lightboxContainer.childNodes[1]
+  video.setAttribute("controls", "controls")
+}
+prevLightbox.addEventListener("click", previousDisplay)
+
+// Navigation Clavier
+const navigateKeyboardLightbox = () => {
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+      closeLightbox()
+    } else if (e.key === "ArrowLeft") {
+      previousDisplay()
+    } else if (e.key === "ArrowRight") {
+      nextDisplay()
+    }
+  })
+}
+navigateKeyboardLightbox()
+
+// Accessibilité avec la touche Tab
+lightbox.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    if (e.shiftKey) {
+      if (document.activeElement === firstTargetLightbox) {
+        e.preventDefault()
+        lastTargetLightbox.focus()
+      }
+    } else {
+      if (document.activeElement === lastTargetLightbox) {
+        e.preventDefault()
+        firstTargetLightbox.focus()
+      }
+    }
+  }
+})
