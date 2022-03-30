@@ -18,7 +18,7 @@ fetchIndex()
 
 header.innerHTML =
   `<a href="./index.html" tabindex="1">
-    <img class="header_logo" src="./src/assets/images/logo.svg" alt="Fisheye Home page"/>
+    <img class="header_logo" src="./src/assets/logo.svg" alt="Fisheye Home page"/>
   </a>
   <h1 class="header_title" tabindex="2">Nos Photographes</h1>`
 
