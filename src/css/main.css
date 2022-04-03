@@ -196,7 +196,7 @@ button {
 }
 .lightbox_container_end {
   position: absolute;
-  right: -35px;
+  right: -10px;
   top: 0;
   background-color: #ffffff;
 }
@@ -206,6 +206,8 @@ button {
 .lightbox_container_media img, .lightbox_container_media video {
   width: 75vw;
   height: 80vh;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 .lightbox_container_media figcaption {
   font-size: 1.5rem;
@@ -363,7 +365,7 @@ button {
   width: 100%;
   height: 100%;
   border-radius: 5px;
-  object-fit: cover;
+  object-fit: fill;
   cursor: pointer;
 }
 .mediaCard_details {
