@@ -41,12 +41,16 @@
       <form name="contact" action="photographer.html" method="GET">
         <label class="modal_content_label" for="first">Prénom</label>
         <input tabindex="4" class="modal_content_form-data " type="text" id="first"/>
+        <span id="error-first" class="error"></span>
         <label class="modal_content_label" for="last">Nom</label>
         <input tabindex="4" class="modal_content_form-data " type="text" id="last"/>
+        <span id="error-last" class="error"></span>
         <label class="modal_content_label" for="email">Email</label>
         <input tabindex="4" class="modal_content_form-data " type="email" id="email"/>
+        <span id="error-email" class="error"></span>
         <label class="modal_content_label" for="message">Votre message</label>
-        <textarea tabindex="4" id="message" cols="30" rows="10"></textarea>
+        <textarea tabindex="4" id="message" cols="25" rows="8"></textarea>
+        <span id="error-message" class="error"></span>
         <input tabindex="4"  class="modal_content_submit " type="submit" value="Envoyer"/>
       </form>
     </div>

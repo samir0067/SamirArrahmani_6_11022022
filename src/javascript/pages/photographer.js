@@ -29,6 +29,7 @@ fetchPhotographer().then((data) => {
   mediaPhotographerList()
   displayPriceOneDay()
   totalLikesCalculation()
+  navigateKeyboardLightbox()
 })
 
 //--------------------------------------------------------------------------------------------------------//
@@ -236,6 +237,7 @@ const nextDisplay = () => {
   const video = lightboxContainerMedia.childNodes[1]
   video.setAttribute("controls", "controls")
 }
+
 nextLightbox.addEventListener("click", nextDisplay)
 
 const previousDisplay = () => {
@@ -247,6 +249,7 @@ const previousDisplay = () => {
   const video = lightboxContainerMedia.childNodes[1]
   video.setAttribute("controls", "controls")
 }
+
 prevLightbox.addEventListener("click", previousDisplay)
 
 // Navigation Clavier
@@ -261,7 +264,6 @@ const navigateKeyboardLightbox = () => {
     }
   })
 }
-navigateKeyboardLightbox()
 
 //--------------------------------------------------------------------------------------------------------//
 //*********************************************** LA MODAL ***********************************************//
@@ -272,7 +274,6 @@ const closeModal = document.querySelector(".modal_content_close")
 const photographerName = document.getElementById("photographer_name")
 const photographerContact = document.querySelector(".photographer_contact")
 const form = document.querySelector("form")
-
 
 const modalClosure = (event) => {
   event.preventDefault()
@@ -297,10 +298,116 @@ modal.addEventListener("keydown", (event) => {
   }
 })
 
+//--------------------------------------------------------------------------------------------------------//
+//********************************************** FORMULAIRE **********************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const first = document.getElementById("first")
+const last = document.getElementById("last")
+const email = document.getElementById("email")
+const message = document.getElementById("message")
+
+const errorFirst = document.getElementById("error-first")
+const errorLast = document.getElementById("error-last")
+const errorEmail = document.getElementById("error-email")
+const errorMessage = document.getElementById("error-message")
+
+// drapeau pour valider les champs
+let firstIsValid = false
+let lastIsValid = false
+let emailIsValid = false
+let messageIsValid = false
+
+// Fonction permettant de vérifier les champs
+function validate() {
+  // firstName
+  if (first.value === '') {
+    submissionDenied(first, errorFirst, 'Prénom requis')
+    firstIsValid = false
+  } else if (first.value.length < 2) {
+    submissionDenied(first, errorFirst, 'Veuillez entrer minimum 2 caractères')
+    firstIsValid = false
+  } else {
+    submissionValidate(first, errorFirst)
+    firstIsValid = true
+  }
+
+  // lastName
+  if (last.value === '') {
+    submissionDenied(last, errorLast, 'Nom requis')
+    lastIsValid = false
+  } else if (last.value.length < 2) {
+    submissionDenied(last, errorLast, 'Veuillez entrer 2 caractères ou plus pour le champ du nom')
+    lastIsValid = false
+  } else {
+    submissionValidate(last, errorLast)
+    lastIsValid = true
+  }
+
+  // email
+  if (email.value === '') {
+    submissionDenied(email, errorEmail, 'E-mail requis')
+    emailIsValid = false
+  } else if (!validateEmail(email.value)) {
+    submissionDenied(email, errorEmail, 'Cet email n\'est pas valide')
+    emailIsValid = false
+  } else {
+    submissionValidate(email, errorEmail)
+    emailIsValid = true
+  }
+
+  // message
+  if (message.value === '') {
+    submissionDenied(message, errorMessage, 'Vous devez entrer un message')
+    messageIsValid = false
+  } else if (message.value.length < 2) {
+    submissionDenied(message, errorMessage, 'message non valide')
+    messageIsValid = false
+  } else {
+    submissionValidate(message, errorMessage)
+    messageIsValid = true
+  }
+
+  if (firstIsValid &&
+    lastIsValid &&
+    emailIsValid &&
+    messageIsValid) {
+    submissionForm()
+  }
+}
+
+// Handle submission
+function submissionForm() {
+  modal.style.display = "none"
+  form.reset()
+}
+
+// Field submission denied
+function submissionDenied(field, errorField, message) {
+  field.style.border = "solid 2px #901c1c"
+  errorField.classList.add('errorField')
+  errorField.innerHTML = message
+}
+
+// Field submission validate
+function submissionValidate(field, errorField) {
+  field.style.border = "solid 2px limegreen"
+  errorField.classList.remove('errorField')
+  errorField.innerHTML = ''
+}
+
+// Validation of the email field
+function validateEmail(email) {
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return emailRegex.test(String(email).toLowerCase())
+}
+
 // récupération des entrées à la soumission
-form.addEventListener("submit", event => {
+form.addEventListener("submit", function(event) {
   event.preventDefault()
+
   console.log(`Nom => ${form.elements['last'].value} Prénom => ${form.elements['first'].value}`)
   console.log(`Email => ${form.elements['email'].value} Message => ${form.elements['message'].value}`)
-  form.reset()
+
+  validate()
 })
