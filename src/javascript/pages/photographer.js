@@ -1,27 +1,4 @@
-const idPhotographer = new URLSearchParams(window.location.search).get("identifiant")
 const body = document.querySelector("body")
-const header = document.querySelector(".header")
-const photographerProfile = document.querySelector(".photographer_profile")
-const photographerPhoto = document.querySelector(".photographer_photo")
-const mediaContainer = document.querySelector(".mediaContainer")
-const dropDownButton = document.querySelector(".dropDown_list_visible")
-const currentFilter = document.querySelector(".dropDown_list_visible_current")
-const dropDownImage = document.querySelector(".dropDown_list_visible_image")
-const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
-const likeContainerPriceOneDay = document.querySelector(".likeContainer_price_oneDay")
-const likesTotal = document.getElementById("likeContainer_likes_total")
-const lightbox = document.querySelector(".lightbox")
-const lightboxContainer = document.querySelector(".lightbox_container_media")
-const endLightbox = document.querySelector(".lightbox_container_end")
-const nextLightbox = document.querySelector(".lightbox_container_next")
-const prevLightbox = document.querySelector(".lightbox_container_previous")
-const target = document.getElementsByClassName("target")
-const modal = document.querySelector(".modal")
-const photographerName = document.getElementById("photographer_name")
-const photographerContact = document.querySelector(".photographer_contact")
-const closeModal = document.querySelector(".modal_content_close")
-const focusModal = document.getElementsByClassName("focus-modal")
-const form = document.querySelector("form")
 
 let count = 0
 let sorted = ""
@@ -29,16 +6,20 @@ let typeFilter = ""
 let selectedPhotographer = ""
 let mediasPhotographer = []
 let currentIndex = 0
-let firstTargetLightbox = target[0]
-let lastTargetLightbox = target[target.length - 1]
-let firstFocusModal = focusModal[0]
-let lastFocusModal = focusModal[focusModal.length - 1]
+let currentTabIndex = 0
+
+//--------------------------------------------------------------------------------------------------------//
+//**************************************** GESTION DES DONNÉES *******************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const idPhotographer = new URLSearchParams(window.location.search).get("identifiant")
 
 // ------------ Recuperation et traitement des données depuis le fichier photographers.json ------------
 const fetchPhotographer = async() => {
   return await fetch("photographers.json")
     .then((response) => response.json())
 }
+
 fetchPhotographer().then((data) => {
   selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
@@ -50,6 +31,14 @@ fetchPhotographer().then((data) => {
   totalLikesCalculation()
 })
 
+//--------------------------------------------------------------------------------------------------------//
+//**************************************** PROFIL DU PHOTOGRAPHE *****************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const header = document.querySelector(".header")
+const photographerProfile = document.querySelector(".photographer_profile")
+const photographerPhoto = document.querySelector(".photographer_photo")
+
 // ----------- Affichage du logo avec header ----------------------
 header.innerHTML =
   `<a href="./index.html" tabindex="1">
@@ -59,8 +48,8 @@ header.innerHTML =
 // ------------ Affichage de la description du profil actuel ------------------
 const profileDescription = () => {
   photographerProfile.innerHTML = `
-      <h1 class="photographer_profile_name">${selectedPhotographer.name}</h1>
-      <h2 class="photographer_profile_address">${selectedPhotographer.city}, ${selectedPhotographer.country}</h2>
+      <h1 tabindex="2" class="photographer_profile_name">${selectedPhotographer.name}</h1>
+      <h2 tabindex="3" class="photographer_profile_address">${selectedPhotographer.city}, ${selectedPhotographer.country}</h2>
       <p class="photographer_profile_description">${selectedPhotographer.tagline}</p>
   `
 }
@@ -68,12 +57,80 @@ const profileDescription = () => {
 // ------------ Affichage de la photo du profil actuel ------------------
 const profilePhoto = () => {
   photographerPhoto.innerHTML = `
-    <img            
+    <img
+      tabindex="6"            
       alt="${selectedPhotographer.name}"
       src="./src/assets/photographersAndMedia/PhotographersPhotos/${selectedPhotographer.portrait}" 
     />
   `
 }
+
+//--------------------------------------------------------------------------------------------------------//
+//****************************************** CONTENEUR DE MÉDIA ******************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const mediaContainer = document.querySelector(".mediaContainer")
+
+// afficher la balise correspondent au type de média
+const displayMediaType = (item) => {
+  if (item.hasOwnProperty("video")) {
+    return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}" autoplay/>`
+  } else {
+    return `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.image}" alt="${item.image}">`
+  }
+}
+
+// afficher la liste des médias en fonction du photographe actuel
+const mediaPhotographerList = () => {
+  if (sorted === "") {
+    mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
+  }
+  mediasPhotographer.forEach((photographeMedia) => {
+    mediaContainer.innerHTML += `
+      <div class="mediaCard">
+        <button class="mediaCard_link" tabindex="9" title="${photographeMedia.title}" data-tab="9" data-id="${photographeMedia.id}">
+          ${displayMediaType(photographeMedia)}
+        </button>
+        <div class="mediaCard_details">
+          <h3 tabindex="9" class="mediaCard_details_title">${photographeMedia.title}</h3>
+          <button tabindex="9" type="button" class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}">
+            <span class="mediaCard_details_favorites_likes">${photographeMedia.likes}</span>
+            <img class="mediaCard_details_favorites_heart" src="./src/assets/redHeart.png" alt="red heart"/>
+          </button>
+        </div>
+      </div>
+    `
+  })
+  openLightbox()
+  incrementalLikes()
+}
+
+// incrementer les like dynamiquement avec au click
+const incrementalLikes = () => {
+  const buttonLikes = document.querySelectorAll(".mediaCard_details_favorites")
+  buttonLikes.forEach((element) =>
+    element.addEventListener("click", () => {
+      if (element.dataset.select === "true") {
+        element.dataset.select = "false"
+        element.firstElementChild.textContent = Number(element.firstElementChild.innerHTML) - 1
+      } else {
+        element.dataset.select = "true"
+        element.firstElementChild.textContent = Number(element.firstElementChild.textContent) + 1
+      }
+      count = 0
+      totalLikesCalculation()
+    })
+  )
+}
+
+//--------------------------------------------------------------------------------------------------------//
+//*********************************************** DROPDOWN ***********************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const dropDownButton = document.querySelector(".dropDown_list_visible")
+const currentFilter = document.querySelector(".dropDown_list_visible_current")
+const dropDownImage = document.querySelector(".dropDown_list_visible_image")
+const dropDownHide = document.querySelectorAll(".dropDown_list_hide")
 
 // Écoutez les événements au moment du click du bouton déroulant.
 dropDownButton.addEventListener("click", () => {
@@ -108,57 +165,12 @@ const dropDownFilter = () => {
   })
 }
 
-// incrementer les like dynamiquement avec au click
-const incrementalLikes = () => {
-  const buttonLikes = document.querySelectorAll(".mediaCard_details_favorites")
-  buttonLikes.forEach((e) =>
-    e.addEventListener("click", () => {
-      if (e.dataset.select === "true") {
-        e.dataset.select = "false"
-        e.firstElementChild.textContent = Number(e.firstElementChild.innerHTML) - 1
-      } else {
-        e.dataset.select = "true"
-        e.firstElementChild.textContent = Number(e.firstElementChild.textContent) + 1
-      }
-      count = 0
-      totalLikesCalculation()
-    })
-  )
-}
+//--------------------------------------------------------------------------------------------------------//
+//******************************************* CONTENEUR DE LIKES *****************************************//
+//--------------------------------------------------------------------------------------------------------//
 
-// afficher la balise correspondent au type de média
-const displayMediaType = (item) => {
-  if (item.hasOwnProperty("video")) {
-    return `<video class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.video}" autoplay/>`
-  } else {
-    return `<img class="mediaCard_link_media" src="./src/assets/photographersAndMedia/${selectedPhotographer.name}/${item.image}" alt="${item.image}">`
-  }
-}
-
-// afficher la liste des médias en fonction du photographe actuel
-const mediaPhotographerList = () => {
-  if (sorted === "") {
-    mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
-  }
-  mediasPhotographer.forEach((photographeMedia) => {
-    mediaContainer.innerHTML += `
-      <div class="mediaCard">
-        <button class="mediaCard_link" title="${photographeMedia.title}" data-id="${photographeMedia.id}">
-          ${displayMediaType(photographeMedia)}
-        </button>
-        <div class="mediaCard_details">
-          <h3 class="mediaCard_details_title">${photographeMedia.title}</h3>
-          <button type="button" class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}">
-            <span class="mediaCard_details_favorites_likes">${photographeMedia.likes}</span>
-            <img class="mediaCard_details_favorites_heart" src="./src/assets/redHeart.png" alt="red heart"/>
-          </button>
-        </div>
-      </div>
-    `
-  })
-  openLightbox()
-  incrementalLikes()
-}
+const likeContainerPriceOneDay = document.querySelector(".likeContainer_price_oneDay")
+const likesTotal = document.getElementById("likeContainer_likes_total")
 
 // affichage du tarif journalier du photographe actuel
 const displayPriceOneDay = () => likeContainerPriceOneDay.innerHTML = `${selectedPhotographer.price} / jour`
@@ -173,17 +185,33 @@ const totalLikesCalculation = () => {
   })
 }
 
+//--------------------------------------------------------------------------------------------------------//
+//*********************************************** LIGHTBOX ***********************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const lightbox = document.querySelector(".lightbox")
+const lightboxContainerMedia = document.querySelector(".lightbox_container_media")
+const endLightbox = document.querySelector(".lightbox_container_end")
+const nextLightbox = document.querySelector(".lightbox_container_next")
+const prevLightbox = document.querySelector(".lightbox_container_previous")
+const focusLightbox = document.getElementsByClassName("focus_lightbox")
+
 // Ouverture de la Lightbox
 const openLightbox = () => {
-  firstTargetLightbox.focus()
+  // focusLightbox.focus()
   const cartes = document.querySelectorAll(".mediaCard_link")
-  cartes.forEach((carte, index) =>
-    carte.addEventListener("click", () => {
+  cartes.forEach((element, index) =>
+    element.addEventListener("click", () => {
+      if (element.dataset.tab) {
+        currentTabIndex = element.dataset.tab
+        prevLightbox.setAttribute('tabindex',currentTabIndex)
+      }
+      console.log('currentTabIndex =>', currentTabIndex )
       currentIndex = index
+      body.style.overflow = "hidden"
       lightbox.style.display = "flex"
-      lightbox.setAttribute
       lightboxView(currentIndex)
-      const video = lightboxContainer.childNodes[1]
+      const video = lightboxContainerMedia.childNodes[1]
       video.setAttribute("controls", "controls")
     })
   )
@@ -191,7 +219,7 @@ const openLightbox = () => {
 
 // Affichage Lightbox
 const lightboxView = (id) => {
-  lightboxContainer.innerHTML = `
+  lightboxContainerMedia.innerHTML = `
     ${displayMediaType(mediasPhotographer[id])}
     <figcaption>${mediasPhotographer[id].title}</figcaption>
   `
@@ -199,8 +227,10 @@ const lightboxView = (id) => {
 
 // Fermeture Lightbox
 const closeLightbox = () => {
+  body.style.overflow = "visible"
   lightbox.style.display = "none"
 }
+
 endLightbox.addEventListener("click", closeLightbox)
 
 const nextDisplay = () => {
@@ -209,7 +239,7 @@ const nextDisplay = () => {
     currentIndex = 0
   }
   lightboxView(currentIndex)
-  const video = lightboxContainer.childNodes[1]
+  const video = lightboxContainerMedia.childNodes[1]
   video.setAttribute("controls", "controls")
 }
 nextLightbox.addEventListener("click", nextDisplay)
@@ -220,83 +250,62 @@ const previousDisplay = () => {
     currentIndex = mediasPhotographer.length - 1
   }
   lightboxView(currentIndex)
-  const video = lightboxContainer.childNodes[1]
+  const video = lightboxContainerMedia.childNodes[1]
   video.setAttribute("controls", "controls")
 }
 prevLightbox.addEventListener("click", previousDisplay)
 
 // Navigation Clavier
 const navigateKeyboardLightbox = () => {
-  document.addEventListener("keyup", (e) => {
-    if (e.key === "Escape" || e.key === "Esc") {
+  document.addEventListener("keyup", (event) => {
+    if (event.key === "Escape" || event.key === "Esc") {
       closeLightbox()
-    } else if (e.key === "ArrowLeft") {
+    } else if (event.key === "ArrowLeft") {
       previousDisplay()
-    } else if (e.key === "ArrowRight") {
+    } else if (event.key === "ArrowRight") {
       nextDisplay()
     }
   })
 }
 navigateKeyboardLightbox()
 
-// Navigation avec la touche tab
-lightbox.addEventListener("keydown", (e) => {
-  if (e.key === "Tab") {
-    if (e.shiftKey) {
-      if (document.activeElement === firstTargetLightbox) {
-        e.preventDefault()
-        lastTargetLightbox.focus()
-      }
-    } else {
-      if (document.activeElement === lastTargetLightbox) {
-        e.preventDefault()
-        firstTargetLightbox.focus()
-      }
-    }
-  }
-})
+//--------------------------------------------------------------------------------------------------------//
+//*********************************************** LA MODAL ***********************************************//
+//--------------------------------------------------------------------------------------------------------//
 
-// La Modal
-photographerContact.addEventListener("click", () => {
-  body.style.overflow = "hidden"
-  modal.style.display = "block"
-  firstFocusModal.focus()
-  photographerName.textContent = selectedPhotographer.name
-})
+const modal = document.querySelector(".modal")
+const closeModal = document.querySelector(".modal_content_close")
+const photographerName = document.getElementById("photographer_name")
+const photographerContact = document.querySelector(".photographer_contact")
+const form = document.querySelector("form")
 
-const modalClosure = (e) => {
-  e.preventDefault()
+
+const modalClosure = (event) => {
+  event.preventDefault()
   body.style.overflow = "visible"
   modal.style.display = "none"
 }
 
-closeModal.addEventListener("click", (e) => {
-  modalClosure(e)
+photographerContact.addEventListener("click", () => {
+  body.style.overflow = "hidden"
+  modal.style.display = "block"
+  photographerName.textContent = selectedPhotographer.name
 })
 
-// navigation avec la touche tab
-modal.addEventListener("keydown", (e) => {
-  if (e.key === "Tab") {
-    if (e.shiftKey) {
-      if (document.activeElement === firstFocusModal) {
-        e.preventDefault()
-        lastFocusModal.focus()
-      }
-    } else {
-      if (document.activeElement === lastFocusModal) {
-        e.preventDefault()
-        firstFocusModal.focus()
-      }
-    }
-  }
-  if (e.key === "Escape" || e.key === "Esc") {
-    modalClosure(e)
+closeModal.addEventListener("click", (event) => {
+  modalClosure(event)
+})
+
+// navigation avec le clavier
+modal.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" || event.key === "Esc") {
+    modalClosure(event)
   }
 })
 
 // récupération des entrées à la soumission
-form.addEventListener("submit", e => {
-  e.preventDefault()
+form.addEventListener("submit", event => {
+  event.preventDefault()
   console.log(`Nom => ${form.elements['last'].value} Prénom => ${form.elements['first'].value}`)
   console.log(`Email => ${form.elements['email'].value} Message => ${form.elements['message'].value}`)
   form.reset()
