@@ -239,14 +239,14 @@ button {
 }
 .modal {
   display: none;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 40%;
   transform: translate(-50%, -40%);
   height: 87vh;
   width: 100vw;
   max-width: 700px;
-  z-index: 2;
+  z-index: 4;
   background-color: #DB8876;
   border-radius: 5px;
   box-shadow: -7px 9px 17px 5px rgba(0, 0, 0, 0.19);

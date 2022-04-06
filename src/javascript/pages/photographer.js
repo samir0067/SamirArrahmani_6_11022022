@@ -5,8 +5,8 @@ let sorted = ""
 let typeFilter = ""
 let selectedPhotographer = ""
 let mediasPhotographer = []
-let currentIndex = 0
-let currentTabIndex = 0
+let currentValue = 0
+let tabIndex = 10
 
 //--------------------------------------------------------------------------------------------------------//
 //**************************************** GESTION DES DONNÉES *******************************************//
@@ -88,12 +88,12 @@ const mediaPhotographerList = () => {
   mediasPhotographer.forEach((photographeMedia) => {
     mediaContainer.innerHTML += `
       <div class="mediaCard">
-        <button class="mediaCard_link" tabindex="9" title="${photographeMedia.title}" data-tab="9" data-id="${photographeMedia.id}">
+        <button class="mediaCard_link" tabindex="${tabIndex}" title="${photographeMedia.title}" data-tabvalue="${tabIndex}" data-id="${photographeMedia.id}">
           ${displayMediaType(photographeMedia)}
         </button>
         <div class="mediaCard_details">
-          <h3 tabindex="9" class="mediaCard_details_title">${photographeMedia.title}</h3>
-          <button tabindex="9" type="button" class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}">
+          <h3 tabindex="${tabIndex}" class="mediaCard_details_title">${photographeMedia.title}</h3>
+          <button tabindex="${tabIndex}" type="button" class="mediaCard_details_favorites" data-select="false" data-likes="${photographeMedia.likes}">
             <span class="mediaCard_details_favorites_likes">${photographeMedia.likes}</span>
             <img class="mediaCard_details_favorites_heart" src="./src/assets/redHeart.png" alt="red heart"/>
           </button>
@@ -189,28 +189,22 @@ const totalLikesCalculation = () => {
 //*********************************************** LIGHTBOX ***********************************************//
 //--------------------------------------------------------------------------------------------------------//
 
+const main = document.querySelector("main")
 const lightbox = document.querySelector(".lightbox")
 const lightboxContainerMedia = document.querySelector(".lightbox_container_media")
 const endLightbox = document.querySelector(".lightbox_container_end")
 const nextLightbox = document.querySelector(".lightbox_container_next")
 const prevLightbox = document.querySelector(".lightbox_container_previous")
-const focusLightbox = document.getElementsByClassName("focus_lightbox")
 
 // Ouverture de la Lightbox
 const openLightbox = () => {
-  // focusLightbox.focus()
   const cartes = document.querySelectorAll(".mediaCard_link")
   cartes.forEach((element, index) =>
     element.addEventListener("click", () => {
-      if (element.dataset.tab) {
-        currentTabIndex = element.dataset.tab
-        prevLightbox.setAttribute('tabindex',currentTabIndex)
-      }
-      console.log('currentTabIndex =>', currentTabIndex )
-      currentIndex = index
-      body.style.overflow = "hidden"
+      currentValue = index
+      mediaContainer.style.display = "none"
       lightbox.style.display = "flex"
-      lightboxView(currentIndex)
+      lightboxView(currentValue)
       const video = lightboxContainerMedia.childNodes[1]
       video.setAttribute("controls", "controls")
     })
@@ -227,29 +221,29 @@ const lightboxView = (id) => {
 
 // Fermeture Lightbox
 const closeLightbox = () => {
-  body.style.overflow = "visible"
+  mediaContainer.style.display = "flex"
   lightbox.style.display = "none"
 }
 
 endLightbox.addEventListener("click", closeLightbox)
 
 const nextDisplay = () => {
-  currentIndex++
-  if (currentIndex === mediasPhotographer.length) {
-    currentIndex = 0
+  currentValue++
+  if (currentValue === mediasPhotographer.length) {
+    currentValue = 0
   }
-  lightboxView(currentIndex)
+  lightboxView(currentValue)
   const video = lightboxContainerMedia.childNodes[1]
   video.setAttribute("controls", "controls")
 }
 nextLightbox.addEventListener("click", nextDisplay)
 
 const previousDisplay = () => {
-  currentIndex--
-  if (currentIndex < 0) {
-    currentIndex = mediasPhotographer.length - 1
+  currentValue--
+  if (currentValue < 0) {
+    currentValue = mediasPhotographer.length - 1
   }
-  lightboxView(currentIndex)
+  lightboxView(currentValue)
   const video = lightboxContainerMedia.childNodes[1]
   video.setAttribute("controls", "controls")
 }

@@ -30,6 +30,40 @@
     <div class="photographer_photo"></div>
   </section>
 
+  <!-- MODAL -->
+  <section class="modal">
+    <div class="modal_content ">
+      <h2 tabindex="4">Contactez-moi</h2>
+      <h2 id="photographer_name"></h2>
+      <button tabindex="5"  class="modal_content_close ">
+        <img src="./src/assets/whiteClose.svg" alt="close button"/>
+      </button>
+      <form name="contact" action="photographer.html" method="GET">
+        <label class="modal_content_label" for="first">Prénom</label>
+        <input tabindex="4" class="modal_content_form-data " type="text" id="first"/>
+        <label class="modal_content_label" for="last">Nom</label>
+        <input tabindex="4" class="modal_content_form-data " type="text" id="last"/>
+        <label class="modal_content_label" for="email">Email</label>
+        <input tabindex="4" class="modal_content_form-data " type="email" id="email"/>
+        <label class="modal_content_label" for="message">Votre message</label>
+        <textarea tabindex="4" id="message" cols="30" rows="10"></textarea>
+        <input tabindex="4"  class="modal_content_submit " type="submit" value="Envoyer"/>
+      </form>
+    </div>
+  </section>
+
+  <!-- LIKES -->
+  <section tabindex="7" class="likeContainer">
+    <div class="likeContainer_likes">
+      <span id="likeContainer_likes_total">0</span>
+      <img class="likeContainer_likes_heart" src="./src/assets/blackHeart.png" role="img" alt="likes"
+           aria-label="Likes "/>
+    </div>
+    <div class="likeContainer_price">
+      <p class="likeContainer_price_oneDay"></p>
+    </div>
+  </section>
+
   <!-- DROPDOWN -->
   <section class="dropDown">
     <p tabindex="8" class="dropDown_label">Trier par</p>
@@ -56,55 +90,22 @@
   <!-- MEDIA -->
   <section class="mediaContainer"></section>
 
-  <!-- LIKES -->
-  <section tabindex="7" class="likeContainer">
-    <div class="likeContainer_likes">
-      <span id="likeContainer_likes_total">0</span>
-      <img class="likeContainer_likes_heart" src="./src/assets/blackHeart.png" role="img" alt="likes"
-           aria-label="Likes "/>
-    </div>
-    <div class="likeContainer_price">
-      <p class="likeContainer_price_oneDay"></p>
-    </div>
-  </section>
-
   <!-- LIGHTBOX -->
-  <section tabindex="-1" class="lightbox focus_lightbox">
+  <section class="lightbox">
     <div class="lightbox_container" aria-label="image closeup view">
-      <button tabindex="10" class="lightbox_container_previous" type="button" aria-label="Previous image">
+      <button tabindex="0" class="lightbox_container_previous" type="button" aria-label="Previous image">
         <img src="./src/assets/arrowPrevious.svg" alt="Previous image"/>
       </button>
       <figure class="lightbox_container_media"></figure>
-      <button tabindex="10" class="lightbox_container_next" type="button" aria-label="Next image">
+      <button tabindex="0" class="lightbox_container_next" type="button" aria-label="Next image">
         <img src="./src/assets/arrowNext.svg" alt="Next image"/>
       </button>
-      <button tabindex="11" class="lightbox_container_end" type="button" aria-label="Close dialog">
+      <button tabindex="0" class="lightbox_container_end" type="button" aria-label="Close dialog">
         <img src="./src/assets/redClose.svg" alt="Close dialog"/>
       </button>
     </div>
   </section>
 
-  <!-- MODAL -->
-  <section class="modal">
-    <div class="modal_content ">
-      <h2 tabindex="4">Contactez-moi</h2>
-      <h2 id="photographer_name"></h2>
-      <button tabindex="5"  class="modal_content_close ">
-        <img src="./src/assets/whiteClose.svg" alt="close button"/>
-      </button>
-      <form name="contact" action="photographer.html" method="GET">
-        <label class="modal_content_label" for="first">Prénom</label>
-        <input tabindex="4" class="modal_content_form-data " type="text" id="first"/>
-        <label class="modal_content_label" for="last">Nom</label>
-        <input tabindex="4" class="modal_content_form-data " type="text" id="last"/>
-        <label class="modal_content_label" for="email">Email</label>
-        <input tabindex="4" class="modal_content_form-data " type="email" id="email"/>
-        <label class="modal_content_label" for="message">Votre message</label>
-        <textarea tabindex="4" id="message" cols="30" rows="10"></textarea>
-        <input tabindex="4"  class="modal_content_submit " type="submit" value="Envoyer"/>
-      </form>
-    </div>
-  </section>
 </main>
 
 <!-- JAVASCRIPT -->
