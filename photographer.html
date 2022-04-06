@@ -24,23 +24,31 @@
 <main class="main">
 
   <!-- PROFILE -->
-  <section class="photographer"></section>
+  <section class="photographer">
+    <div class="photographer_profile"></div>
+    <button class="photographer_contact" aria-label="Contact Me">Contactez-moi</button>
+    <div class="photographer_photo"></div>
+  </section>
 
   <!-- DROPDOWN -->
   <section class="dropDown">
     <p class="dropDown_label">Trier par</p>
     <div class="dropDown_list">
-      <button class="dropDown_list_visible">
-        <div class="dropDown_list_visible_current">Popularité</div>
+      <button id="drop_button" class="dropDown_list_visible" aria-selected="true" aria-activedescendant="drop_button"
+              tabindex="0" role="button" aria-haspopup="listbox" aria-labelledby="drop_button">
+        <div class="dropDown_list_visible_current">
+          <div class="dropDown_list_hide_borderTop"></div>
+          <div role="listbox">Popularité</div>
+        </div>
         <img class="dropDown_list_visible_image" src="./src/assets/chevron-down.png" alt="arrow down"/>
       </button>
-      <button class="dropDown_list_hide">
+      <button class="dropDown_list_hide" role="button">
         <div class="dropDown_list_hide_borderTop"></div>
-        Date
+        <div role="listbox">Date</div>
       </button>
-      <button class="dropDown_list_hide">
+      <button class="dropDown_list_hide" role="button">
         <div class="dropDown_list_hide_borderTop"></div>
-        Titre
+        <div role="listbox">Titre</div>
       </button>
     </div>
   </section>
@@ -52,7 +60,8 @@
   <section class="likeContainer">
     <div class="likeContainer_likes">
       <span id="likeContainer_likes_total">0</span>
-      <img class="likeContainer_likes_heart" src="./src/assets/blackHeart.png" alt="coeur noir"/>
+      <img class="likeContainer_likes_heart" src="./src/assets/blackHeart.png" role="img" alt="likes"
+           aria-label="Likes "/>
     </div>
     <div class="likeContainer_price">
       <p class="likeContainer_price_oneDay"></p>
@@ -61,39 +70,43 @@
 
   <!-- LIGHTBOX -->
   <section class="lightbox">
-    <div class="lightbox_container">
-      <button class="lightbox_container_end target" type="button">
-        <img src="./src/assets/redClose.svg" alt="bouton de fermeture"/>
+    <div class="lightbox_container" role="dialog" aria-label="image closeup view">
+      <button class="lightbox_container_end target" type="button" aria-label="Close dialog">
+        <img src="./src/assets/redClose.svg" alt="Close dialog"/>
       </button>
-      <button class="lightbox_container_previous target" type="button">
-        <img src="./src/assets/arrowPrevious.svg" alt="flèche précédente"/>
+      <button class="lightbox_container_previous target" type="button" aria-label="Previous image">
+        <img src="./src/assets/arrowPrevious.svg" alt="Previous image"/>
       </button>
       <figure class="lightbox_container_media"></figure>
-      <button class="lightbox_container_next target" type="button">
-        <img src="./src/assets/arrowNext.svg" alt="flèche suivante"/>
+      <button class="lightbox_container_next target" type="button" aria-label="Next image">
+        <img src="./src/assets/arrowNext.svg" alt="Next image"/>
       </button>
     </div>
   </section>
 
-  <!--<div id="contact_modal">-->
-  <!--  <div class="modal">-->
-  <!--    <header>-->
-  <!--      <h2>Contactez-moi</h2>-->
-  <!--      <img src="src/assets/images/redClose.svg" onclick="closeModal()" alt=""/>-->
-  <!--    </header>-->
-  <!--    <form>-->
-  <!--      <div>-->
-  <!--        <label>-->
-  <!--          Prénom-->
-  <!--          <input/>-->
-  <!--        </label>-->
-  <!--      </div>-->
-  <!--      <button class="contact_button">Envoyer</button>-->
-  <!--    </form>-->
-  <!--  </div>-->
-  <!--</div>-->
-
+  <!-- MODAL -->
+  <section class="modal">
+    <div class="modal_content">
+      <h2>Contactez-moi</h2>
+      <h2 id="photographer_name"></h2>
+      <button class="modal_content_close focus-modal">
+        <img src="./src/assets/whiteClose.svg" alt="close button"/>
+      </button>
+      <form name="contact" action="photographer.html" method="GET">
+        <label class="modal_content_label" for="first">Prénom</label>
+        <input class="modal_content_form-data focus-modal" type="text" id="first"/>
+        <label class="modal_content_label" for="last">Nom</label>
+        <input class="modal_content_form-data focus-modal" type="text" id="last"/>
+        <label class="modal_content_label" for="email">Email</label>
+        <input class="modal_content_form-data focus-modal" type="email" id="email"/>
+        <label class="modal_content_label" for="message">Votre message</label>
+        <textarea id="message" cols="30" rows="10" class="focus-modal"></textarea>
+        <input class="modal_content_submit focus-modal" type="submit" value="Envoyer"/>
+      </form>
+    </div>
+  </section>
 </main>
+
 <!-- JAVASCRIPT -->
 <script src="./src/javascript/pages/photographer.js"></script>
 </body>

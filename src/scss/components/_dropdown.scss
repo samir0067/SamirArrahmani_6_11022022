@@ -35,6 +35,9 @@
       justify-content: space-between;
       z-index: 2;
       padding: 10px;
+      &_current {
+        margin-top: -7px;
+      }
       &_image {
         width: 25px;
         height: 25px;

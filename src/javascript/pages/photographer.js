@@ -1,6 +1,8 @@
 const idPhotographer = new URLSearchParams(window.location.search).get("identifiant")
+const body = document.querySelector("body")
 const header = document.querySelector(".header")
-const photographerProfile = document.querySelector(".photographer")
+const photographerProfile = document.querySelector(".photographer_profile")
+const photographerPhoto = document.querySelector(".photographer_photo")
 const mediaContainer = document.querySelector(".mediaContainer")
 const dropDownButton = document.querySelector(".dropDown_list_visible")
 const currentFilter = document.querySelector(".dropDown_list_visible_current")
@@ -14,6 +16,12 @@ const endLightbox = document.querySelector(".lightbox_container_end")
 const nextLightbox = document.querySelector(".lightbox_container_next")
 const prevLightbox = document.querySelector(".lightbox_container_previous")
 const target = document.getElementsByClassName("target")
+const modal = document.querySelector(".modal")
+const photographerName = document.getElementById("photographer_name")
+const photographerContact = document.querySelector(".photographer_contact")
+const closeModal = document.querySelector(".modal_content_close")
+const focusModal = document.getElementsByClassName("focus-modal")
+const form = document.querySelector("form")
 
 let count = 0
 let sorted = ""
@@ -23,6 +31,8 @@ let mediasPhotographer = []
 let currentIndex = 0
 let firstTargetLightbox = target[0]
 let lastTargetLightbox = target[target.length - 1]
+let firstFocusModal = focusModal[0]
+let lastFocusModal = focusModal[focusModal.length - 1]
 
 // ------------ Recuperation et traitement des données depuis le fichier photographers.json ------------
 const fetchPhotographer = async() => {
@@ -32,7 +42,8 @@ const fetchPhotographer = async() => {
 fetchPhotographer().then((data) => {
   selectedPhotographer = data.photographers.find(photographer => photographer.id == idPhotographer)
   mediasPhotographer = data.media.filter(media => idPhotographer == media.photographerId)
-  profileDescription(selectedPhotographer)
+  profileDescription()
+  profilePhoto()
   dropDownFilter()
   mediaPhotographerList()
   displayPriceOneDay()
@@ -46,14 +57,17 @@ header.innerHTML =
   </a>`
 
 // ------------ Affichage de la description du profil actuel ------------------
-const profileDescription = (selectedPhotographer) => {
+const profileDescription = () => {
   photographerProfile.innerHTML = `
-    <div class="photographer_profile">
       <h1 class="photographer_profile_name">${selectedPhotographer.name}</h1>
       <h2 class="photographer_profile_address">${selectedPhotographer.city}, ${selectedPhotographer.country}</h2>
       <p class="photographer_profile_description">${selectedPhotographer.tagline}</p>
-    </div>
-    <button class="photographer_contact">Contactez-moi</button>
+  `
+}
+
+// ------------ Affichage de la photo du profil actuel ------------------
+const profilePhoto = () => {
+  photographerPhoto.innerHTML = `
     <img            
       alt="${selectedPhotographer.name}"
       src="./src/assets/photographersAndMedia/PhotographersPhotos/${selectedPhotographer.portrait}" 
@@ -75,7 +89,7 @@ const dropDownFilter = () => {
     element.addEventListener("click", (event) => {
       typeFilter = currentFilter.innerHTML
       sorted = event.currentTarget.innerHTML
-      if (sorted === "Popularité") {
+      if (sorted.includes("Popularité")) {
         mediasPhotographer.sort((a, b) => (a.likes < b.likes ? 1 : -1))
         element.innerHTML = typeFilter
         currentFilter.innerHTML = sorted
@@ -225,7 +239,7 @@ const navigateKeyboardLightbox = () => {
 }
 navigateKeyboardLightbox()
 
-// Accessibilité avec la touche Tab
+// Navigation avec la touche tab
 lightbox.addEventListener("keydown", (e) => {
   if (e.key === "Tab") {
     if (e.shiftKey) {
@@ -240,4 +254,50 @@ lightbox.addEventListener("keydown", (e) => {
       }
     }
   }
+})
+
+// La Modal
+photographerContact.addEventListener("click", () => {
+  body.style.overflow = "hidden"
+  modal.style.display = "block"
+  firstFocusModal.focus()
+  photographerName.textContent = selectedPhotographer.name
+})
+
+const modalClosure = (e) => {
+  e.preventDefault()
+  body.style.overflow = "visible"
+  modal.style.display = "none"
+}
+
+closeModal.addEventListener("click", (e) => {
+  modalClosure(e)
+})
+
+// navigation avec la touche tab
+modal.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusModal) {
+        e.preventDefault()
+        lastFocusModal.focus()
+      }
+    } else {
+      if (document.activeElement === lastFocusModal) {
+        e.preventDefault()
+        firstFocusModal.focus()
+      }
+    }
+  }
+  if (e.key === "Escape" || e.key === "Esc") {
+    modalClosure(e)
+  }
+})
+
+// récupération des entrées à la soumission
+form.addEventListener("submit", e => {
+  e.preventDefault()
+  console.log(`Nom => ${form.elements['last'].value} Prénom => ${form.elements['first'].value}`)
+  console.log(`Email => ${form.elements['email'].value} Message => ${form.elements['message'].value}`)
+  form.reset()
 })

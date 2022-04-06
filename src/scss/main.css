@@ -131,6 +131,9 @@ button {
   z-index: 2;
   padding: 10px;
 }
+.dropDown_list_visible_current {
+  margin-top: -7px;
+}
 .dropDown_list_visible_image {
   width: 25px;
   height: 25px;
@@ -223,6 +226,127 @@ button {
   }
   .lightbox_container_media img, .lightbox_container_media video {
     height: 60vh;
+  }
+}
+@media (max-width: 375px) {
+  .lightbox_container_end {
+    right: -5px;
+  }
+  .lightbox_container_media img, .lightbox_container_media video {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+.modal {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -40%);
+  height: 87vh;
+  width: 100vw;
+  max-width: 700px;
+  z-index: 2;
+  background-color: #DB8876;
+  border-radius: 5px;
+  box-shadow: -7px 9px 17px 5px rgba(0, 0, 0, 0.19);
+}
+.modal_content {
+  position: relative;
+  margin: 5%;
+}
+.modal_content_close {
+  position: absolute;
+  top: 20px;
+  left: 93%;
+  background-color: #DB8876;
+  border: none;
+  cursor: pointer;
+}
+.modal_content form {
+  display: flex;
+  flex-direction: column;
+}
+.modal_content h2 {
+  font-size: 3rem;
+  color: black;
+}
+.modal_content_label {
+  font-size: 2rem;
+}
+.modal_content_form-data {
+  width: 100%;
+  height: 3.5rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+}
+.modal_content_submit {
+  cursor: pointer;
+  width: 170px;
+  height: 69px;
+  border-radius: 5px;
+  background-color: #901c1c;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  color: #ffffff;
+  margin-top: 26px;
+  font-size: 1rem;
+}
+.modal_content_submit:hover {
+  background-color: #d3573c;
+}
+.modal_content #message {
+  width: 100%;
+  height: 11rem;
+  font-size: 1.5rem;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    height: 100%;
+  }
+}
+@media (max-width: 375px) {
+  .modal_content_close {
+    top: 8px;
+  }
+  .modal_content_close img {
+    height: 15px;
+    width: 15px;
+  }
+  .modal_content h2 {
+    font-size: 1.5rem;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .modal_content_label {
+    font-size: 1.25rem;
+  }
+  .modal_content_form-data {
+    font-size: 1rem;
+  }
+  .modal_content #message {
+    height: 100px;
+  }
+  .modal_content_submit {
+    cursor: pointer;
+    width: 170px;
+    height: 69px;
+    border-radius: 5px;
+    background-color: #901c1c;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    color: #ffffff;
+    height: 50px;
+    align-self: center;
+  }
+  .modal_content_submit:hover {
+    background-color: #d3573c;
   }
 }
 .header {

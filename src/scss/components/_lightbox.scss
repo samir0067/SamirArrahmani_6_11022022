@@ -54,3 +54,17 @@
     }
   }
 }
+
+@media (max-width: map-get($breakpoints, mobile)) {
+  .lightbox_container {
+    &_end {
+      right: -5px;
+    }
+    &_media {
+      & img, & video {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+}
