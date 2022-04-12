@@ -24,3 +24,14 @@ a {
   color: $colorBlack;
 }
 
+p {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}

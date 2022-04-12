@@ -1,0 +1,70 @@
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.lightbox {
+  display: none;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: $colorWhite;
+  position: fixed;
+  top: 0;
+  left: 0;
+  &_container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: auto;
+    &_end {
+      position: absolute;
+      right: -10px;
+      top: 0;
+      background-color: $colorWhite;
+    }
+    &_next, &_previous {
+      cursor: pointer;
+    }
+    &_media {
+      & img, & video {
+        width: 75vw;
+        height: 80vh;
+        margin-right: 20px;
+        margin-left: 20px;
+      }
+      & figcaption {
+        font-size: 1.5rem;
+        color: $colorPrimary;
+      }
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints, tablet)) {
+  .lightbox_container {
+    &_next img, &_previous img, &_end img {
+      height: 25px;
+    }
+    &_end {
+      right: -15px;
+    }
+    &_media {
+      & img, & video {
+        height: 60vh;
+      }
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints, mobile)) {
+  .lightbox_container {
+    &_end {
+      right: -5px;
+    }
+    &_media {
+      & img, & video {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

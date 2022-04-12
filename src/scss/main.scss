@@ -3,7 +3,14 @@
 
 @import "base/base";
 
-@import "components/cards";
+@import "components/card";
+@import "components/dropdown";
+@import "components/likesContainer";
+@import "components/lightbox";
+@import "components/modalForm";
 
 @import "layout/header";
+@import "layout/profilePhotographer";
+
 @import "pages/index";
+@import "pages/photographer";

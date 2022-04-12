@@ -3,39 +3,116 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="src/assets/favicon.png"/>
-  <link href="src/css/style.css" rel="stylesheet" type="text/css"/>
+  <link href="src/css/main.css" rel="stylesheet" type="text/css"/>
   <title>Fisheye - photographe</title>
 </head>
+
+<!-- BODY -->
 <body>
-<header>
-  <img src="src/assets/images/logo.svg" class="logo" alt=""/>
-</header>
-<main id="main">
-  <div class="photograph-header">
-    <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-  </div>
+
+<!-- HEADER -->
+<header class="header"></header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- PROFILE -->
+  <section class="photographer">
+    <div class="photographer_profile"></div>
+    <button class="photographer_contact" aria-label="Contact Me" tabindex="4">Contactez-moi</button>
+    <div class="photographer_photo"></div>
+  </section>
+
+  <!-- MODAL -->
+  <section class="modal">
+    <div class="modal_content ">
+      <h2 tabindex="4">Contactez-moi</h2>
+      <h2 id="photographer_name"></h2>
+      <button tabindex="5"  class="modal_content_close ">
+        <img src="./src/assets/whiteClose.svg" alt="close button"/>
+      </button>
+      <form name="contact" action="photographer.html" method="GET">
+        <label class="modal_content_label" for="first">Prénom</label>
+        <input tabindex="4" class="modal_content_form-data " type="text" id="first"/>
+        <span id="error-first" class="error"></span>
+        <label class="modal_content_label" for="last">Nom</label>
+        <input tabindex="4" class="modal_content_form-data " type="text" id="last"/>
+        <span id="error-last" class="error"></span>
+        <label class="modal_content_label" for="email">Email</label>
+        <input tabindex="4" class="modal_content_form-data " type="email" id="email"/>
+        <span id="error-email" class="error"></span>
+        <label class="modal_content_label" for="message">Votre message</label>
+        <textarea tabindex="4" id="message" cols="25" rows="8"></textarea>
+        <span id="error-message" class="error"></span>
+        <input tabindex="4"  class="modal_content_submit " type="submit" value="Envoyer"/>
+      </form>
+    </div>
+  </section>
+
+  <!-- LIKES -->
+  <section tabindex="7" class="likeContainer">
+    <div class="likeContainer_likes">
+      <span id="likeContainer_likes_total">0</span>
+      <img class="likeContainer_likes_heart" src="./src/assets/blackHeart.png" role="img" alt="likes"
+           aria-label="Likes "/>
+    </div>
+    <div class="likeContainer_price">
+      <p class="likeContainer_price_oneDay"></p>
+    </div>
+  </section>
+
+  <!-- DROPDOWN -->
+  <section class="dropDown">
+    <p tabindex="8" class="dropDown_label">Trier par</p>
+    <div class="dropDown_list">
+      <button tabindex="9" id="drop_button" class="dropDown_list_visible" aria-selected="true" aria-activedescendant="drop_button"
+              role="button" aria-haspopup="listbox" aria-labelledby="drop_button">
+        <div class="dropDown_list_visible_current">
+          <div class="dropDown_list_hide_borderTop"></div>
+          <div role="listbox">Popularité</div>
+        </div>
+        <img class="dropDown_list_visible_image" src="./src/assets/chevron-down.png" alt="arrow down"/>
+      </button>
+      <button tabindex="9" class="dropDown_list_hide" role="button">
+        <div class="dropDown_list_hide_borderTop"></div>
+        <div role="listbox">Date</div>
+      </button>
+      <button tabindex="9" class="dropDown_list_hide" role="button">
+        <div class="dropDown_list_hide_borderTop"></div>
+        <div role="listbox">Titre</div>
+      </button>
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section class="mediaContainer"></section>
+
+  <!-- LIGHTBOX -->
+  <section class="lightbox">
+    <div class="lightbox_container" aria-label="image closeup view">
+      <button tabindex="0" class="lightbox_container_previous" type="button" aria-label="Previous image">
+        <img src="./src/assets/arrowPrevious.svg" alt="Previous image"/>
+      </button>
+      <figure class="lightbox_container_media"></figure>
+      <button tabindex="0" class="lightbox_container_next" type="button" aria-label="Next image">
+        <img src="./src/assets/arrowNext.svg" alt="Next image"/>
+      </button>
+      <button tabindex="0" class="lightbox_container_end" type="button" aria-label="Close dialog">
+        <img src="./src/assets/redClose.svg" alt="Close dialog"/>
+      </button>
+    </div>
+  </section>
+
 </main>
-<div id="contact_modal">
-  <div class="modal">
-    <header>
-      <h2>Contactez-moi</h2>
-      <img src="src/assets/images/redClose.svg" onclick="closeModal()" alt=""/>
-    </header>
-    <form>
-      <div>
-        <label>Prénom</label>
-        <input/>
-      </div>
-      <button class="contact_button">Envoyer</button>
-    </form>
-  </div>
-</div>
+
+<!-- JAVASCRIPT -->
+<script src="./src/javascript/pages/photographer.js"></script>
 </body>
 </html>

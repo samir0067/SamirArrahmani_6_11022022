@@ -17,3 +17,27 @@
     @content;
   }
 }
+
+@mixin imageProfile {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 7.5rem;
+  box-shadow: $shadow;
+  transition: all 400ms;
+}
+
+@mixin pressButton {
+  cursor: pointer;
+  width: 170px;
+  height: 69px;
+  border-radius: 5px;
+  background-color: $colorPrimary;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  color: $colorWhite;
+  &:hover {
+    background-color: $colorSecondary;
+  }
+}
